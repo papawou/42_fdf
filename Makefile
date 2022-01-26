@@ -8,7 +8,7 @@ CFLAGS +=	-g -fdiagnostics-color=always
 endif
 
 INC := -Iincludes
-LIB := -Imlx_linux -Lmlx_linux -lmlx -lXext -lX11
+INC += -Imlx_linux -Lmlx_linux -lmlx -lXext -lX11
 
 SRC_DIR := ./src/
 SRC := main.c	mat.c
@@ -19,10 +19,10 @@ OBJ := ${SRC:.c=.o}
 all : $(NAME)
 
 $(NAME)	:	${addprefix $(OBJ_DIR), $(OBJ)}
-	$(CC) $(CFLAGS) $^ $(INC) -o $@ $(LIB)
+	$(CC) $(CFLAGS) $^ $(INC) -o $@
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -c $< $(INC) -o $@ $(LIB)
+	$(CC) $(CFLAGS) -c $< $(INC) -o $@
  
 clean :
 	$(RM) ${addprefix $(OBJ_DIR), $(OBJ)}
