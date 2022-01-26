@@ -2,10 +2,12 @@
 
 /*
 column major
-dst <- m * v 
+dst <- m * v
+
+opt? t_mat4 to float *m[4][4] => involve calling func(vec, &mat.m)
 */
 
-t_vec4 mult_vec_mat(const t_vec4 v, const t_mat4 m) //t_mat4 -> float *m[4][4]
+t_vec4 mult_vec_mat(const t_vec4 v, const t_mat4 m)
 {
 	t_vec4 dst;
 
