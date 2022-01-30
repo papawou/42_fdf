@@ -1,3 +1,6 @@
 [submodule "mlx_linux"]
 	path = mlx_linux
 	url = https://github.com/42Paris/minilibx-linux.git
+[submodule "libs/42_libft"]
+	path = libs/42_libft
+	url = git@github.com:papawou/42_libft.git
