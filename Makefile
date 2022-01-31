@@ -1,4 +1,4 @@
-NAME := example.out
+NAME := fdf.out
 
 CC := gcc
 CFLAGS :=	-Wall -Wextra -Werror
@@ -15,8 +15,8 @@ SRC := main.c
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 
-LIBS := 
-LIBSINC :=
+LIBS := ./libs/libft/libft.a ./libs/libftmlx/libftmlx.a
+LIBSINC := -I./libs/libft/inc -I./libs/libftmlx/inc
 
 all : $(NAME)
 
