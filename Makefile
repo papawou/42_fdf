@@ -1,4 +1,4 @@
-NAME := a.out
+NAME := fdf.out
 
 CC := gcc
 CFLAGS :=	-Wall -Wextra -Werror
@@ -8,21 +8,22 @@ CFLAGS +=	-g -fdiagnostics-color=always
 endif
 
 INC := -I./inc
-LIBSINC := -I./libs/libft -I./libs/libftmlx/inc
-LIBS := ./libs/libft/libft.a ./libs/libftmlx/libftmlx.a
 
-SRC_DIR := ./src
+SRCDIR := ./src
 SRC := main.c
 
-OBJ_DIR := ./obj
-OBJ := ${addprefix $(OBJ_DIR)/, ${SRC:.c=.o}}
+OBJDIR := ./obj
+OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 
-all : $(NAME) 
+LIBS := ./libs/libft/libft.a ./libs/libftmlx/libftmlx.a 
+LIBSINC := -I./libs/libft -I./libs/libftmlx/inc
+
+all : $(NAME)
 
 $(NAME)	:	$(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(INC) $(LIBSINC) $(LIBS)
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
+$(OBJDIR)/%.o : $(SRCDIR)/%.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -o $@ -c $< $(INC) $(LIBSINC)
 
