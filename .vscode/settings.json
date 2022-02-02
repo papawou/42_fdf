@@ -1,0 +1,15 @@
+{
+	"files.associations": {
+		"math.h": "c",
+		"fdf.h": "c",
+		"rot.h": "c",
+		"quat.h": "c",
+		"vec.h": "c",
+		"mat.h": "c",
+		"utils.h": "c",
+		"mem.h": "c",
+		"lst.h": "c",
+		"string.h": "c",
+		"io.h": "c"
+	}
+}

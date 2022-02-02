@@ -10,12 +10,12 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c
+SRC := main.c quat.c euler.c axisg.c
 
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 
-LIBS := ./libs/libft/libft.a ./libs/libftmlx/libftmlx.a
+LIBS := ./libs/libft/libft.a ./libs/libftmlx/libftmlx.a -lm
 LIBSINC := -I./libs/libft/inc -I./libs/libftmlx/inc
 
 all : $(NAME)
