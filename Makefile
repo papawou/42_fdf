@@ -4,13 +4,13 @@ CC := gcc
 CFLAGS :=	-Wall -Wextra -Werror
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
-CFLAGS +=	-g -fdiagnostics-color=always
+CFLAGS += -Wno-unused-variable -g -fdiagnostics-color=always
 endif
 
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c quat.c euler.c axisg.c
+SRC := main.c
 
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
