@@ -4,7 +4,7 @@ CC := gcc
 CFLAGS :=	-Wall -Wextra -Werror
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
-CFLAGS += -Wno-unused-variable -g -fdiagnostics-color=always
+CFLAGS += -Wno-unused-variable -g -fdiagnostics-color=always -v
 endif
 
 INC := -I./inc
@@ -15,14 +15,13 @@ SRC := main.c
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 
-LIBS := ./libs/libft/libft.a ./libs/libftmlx/libftmlx.a -lm
-LIBSINC := -I./libs/libft/inc -I./libs/libftmlx/inc
+LIBS := ./libs/libftmlx/libftmlx.a ./libs/libft/libft.a ./libs/mlx/libmlx.a -lXext -lX11 -lm
+LIBSINC := -I./libs/libftmlx/inc -I./libs/libft/inc -I./libs/mlx
 
 all : $(NAME)
 
 $(NAME)	:	$(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(INC) $(LIBSINC) $(LIBS)
-
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -o $@ -c $< $(INC) $(LIBSINC)
@@ -38,4 +37,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re $(LIBS)
+.PHONY : all clean fclean re
