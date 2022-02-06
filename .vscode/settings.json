@@ -13,6 +13,8 @@
 		"io.h": "c",
 		"ftmlx.h": "c",
 		"libftmlx.h": "c",
-		"color.h": "c"
+		"color.h": "c",
+		"cmath": "c",
+		"libft.h": "c"
 	}
 }
