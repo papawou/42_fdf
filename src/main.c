@@ -3,10 +3,11 @@
 int render(t_scene *sc)
 {
 	reset_img(sc->canvas);
-	sc->proj = mat_mult_mat(sc->proj, transform_to_mat(sc->tr_map));
 	draw_map(sc);
+	//print_axis(sc);
 	ftmlx_img_set_pxl_color(sc->canvas, sc->wh.x / 2, sc->wh.y / 2, ftmlx_get_color_int((t_color){127, 127, 127, 0}));
 	put_vertex((t_vec4){0, 0, 0, 1}, (t_color){0, 255, 0, 0}, sc);
+
 	mlx_put_image_to_window(sc->mlx, sc->win, sc->canvas->img, 0, 0);
 	return 0;
 }
@@ -16,9 +17,8 @@ int parse_map(t_scene *sc)
 	sc->map_size.y = 2;
 	sc->map_size.x = 3;
 
-	sc->tr_map = (t_transform){euler_to_quat((t_euler){35.264, -45, 0}), {-sc->map_size.x / 2, 0, -sc->map_size.y / 2}};
-	t_quat q = quat_mult(euler_to_quat((t_euler){35.264, 0, 0}), euler_to_quat((t_euler){0, -45, 0}), 1);
-	sc->tr_map.q = q;
+	sc->tr_map.q = (t_quat)QUAT_ID;
+	sc->tr_map.v = (t_vec3){0, 0, 0};
 	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
 
 	sc->map[0][0] = 5;

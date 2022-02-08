@@ -10,7 +10,7 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c cam.c draw.c img.c
+SRC := main.c cam.c draw.c img.c libft_addon.c
 
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}

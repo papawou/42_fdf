@@ -15,6 +15,7 @@
 		"libftmlx.h": "c",
 		"color.h": "c",
 		"cmath": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"limits": "c"
 	}
 }

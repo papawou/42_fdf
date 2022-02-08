@@ -30,15 +30,15 @@ void draw_map(t_scene *sc)
 
 void draw_face(t_vec4 a, t_vec4 b, t_scene *sc)
 {
-	t_vec2 tmp_a = ndc_to_screen(mat_mult_vec(sc->proj, a), sc);
-	t_vec2 tmp_b = ndc_to_screen(mat_mult_vec(sc->proj, b), sc);
+	t_vec2 tmp_a = ndc_to_screen(get_vertex_ndc(a, sc), sc);
+	t_vec2 tmp_b = ndc_to_screen(get_vertex_ndc(b, sc), sc);
 	draw_line(tmp_a, tmp_b, (t_color){255, 0, 0, 0}, sc);
-	tmp_a = ndc_to_screen(mat_mult_vec(sc->proj, (t_vec4){a.x, 0, a.z, 1}), sc);
-	tmp_b = ndc_to_screen(mat_mult_vec(sc->proj, (t_vec4){b.x, 0, b.z, 1}), sc);
+	tmp_a = ndc_to_screen(get_vertex_ndc((t_vec4){a.x, 0, a.z, 1}, sc), sc);
+	tmp_b = ndc_to_screen(get_vertex_ndc((t_vec4){b.x, 0, b.z, 1}, sc), sc);
 	draw_line(tmp_a, tmp_b, (t_color){255, 0, 0, 0}, sc);
 
-	tmp_a = ndc_to_screen(mat_mult_vec(sc->proj, (t_vec4){a.x, 0, a.z, 1}), sc);
-	tmp_b = ndc_to_screen(mat_mult_vec(sc->proj, (t_vec4){a.x, a.y, a.z, 1}), sc);
+	tmp_a = ndc_to_screen(get_vertex_ndc((t_vec4){a.x, 0, a.z, 1}, sc), sc);
+	tmp_b = ndc_to_screen(get_vertex_ndc((t_vec4){a.x, a.y, a.z, 1}, sc), sc);
 	draw_line(tmp_a, tmp_b, (t_color){255, 0, 0, 0}, sc);
 }
 

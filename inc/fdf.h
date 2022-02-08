@@ -26,6 +26,7 @@ int check_vertex_ndc(t_vec4 v);
 t_vec4 get_vertex_ndc(t_vec4 v, t_scene *sc);
 t_vec2 ndc_to_screen(t_vec4 v, t_scene *sc);
 t_mat4 create_orth_cam(float width, float height, float far, float near, t_transform cam);
+t_mat4 create_persp_cam(float fovx, float aspect, float far, float near, t_transform cam);
 void setup_cam(t_scene *sc);
 // img
 void reset_img(t_img *img);
