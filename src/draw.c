@@ -1,17 +1,5 @@
 #include "fdf.h"
 
-void put_vertex(t_vec4 v, t_color c, t_scene *sc)
-{
-	t_vec4 ndc = get_vertex_ndc(v, sc);
-	if (!check_vertex_ndc(ndc))
-	{
-		ft_putstr_fd("OUT\n", 1);
-		return;
-	}
-	t_vec2 screen = ndc_to_screen(ndc, sc);
-	ftmlx_img_set_pxl_color(sc->canvas, screen.x, screen.y, ftmlx_get_color_int(c));
-}
-
 void draw_map(t_scene *sc)
 {
 	int x = 0;
@@ -30,47 +18,30 @@ void draw_map(t_scene *sc)
 
 void draw_face(t_vec4 a, t_vec4 b, t_scene *sc)
 {
-	t_vec2 tmp_a = ndc_to_screen(get_vertex_ndc(a, sc), sc);
-	t_vec2 tmp_b = ndc_to_screen(get_vertex_ndc(b, sc), sc);
-	draw_line(tmp_a, tmp_b, (t_color){255, 0, 0, 0}, sc);
-	tmp_a = ndc_to_screen(get_vertex_ndc((t_vec4){a.x, 0, a.z, 1}, sc), sc);
-	tmp_b = ndc_to_screen(get_vertex_ndc((t_vec4){b.x, 0, b.z, 1}, sc), sc);
-	draw_line(tmp_a, tmp_b, (t_color){255, 0, 0, 0}, sc);
-
-	tmp_a = ndc_to_screen(get_vertex_ndc((t_vec4){a.x, 0, a.z, 1}, sc), sc);
-	tmp_b = ndc_to_screen(get_vertex_ndc((t_vec4){a.x, a.y, a.z, 1}, sc), sc);
-	draw_line(tmp_a, tmp_b, (t_color){255, 0, 0, 0}, sc);
+	process_line(a, b, (t_color){255, 0, 0, 0}, sc);
+	process_line((t_vec4){a.x, 0, a.z, 1}, (t_vec4){b.x, 0, b.z, 1}, (t_color){255, 0, 0, 0}, sc);
+	process_line((t_vec4){a.x, 0, a.z, 1}, (t_vec4){a.x, a.y, a.z, 1}, (t_color){255, 0, 0, 0}, sc);
 }
 
 void draw_column(t_vec4 org, t_scene *sc)
 {
-	int off = 1;
-	draw_face(org, (t_vec4){org.x + off, org.y, org.z, 1}, sc); //->tl tr br bl ...tl
+	int off = 1; //->tl tr br bl ...tl
+	draw_face(org, (t_vec4){org.x + off, org.y, org.z, 1}, sc);
 	draw_face((t_vec4){org.x + off, org.y, org.z, 1}, (t_vec4){org.x + off, org.y, org.z + off, 1}, sc);
 	draw_face((t_vec4){org.x + off, org.y, org.z + off, 1}, (t_vec4){org.x, org.y, org.z + off, 1}, sc);
 	draw_face((t_vec4){org.x, org.y, org.z + off, 1}, org, sc);
 }
 
-void print_axis(t_scene *sc)
+void draw_axis(t_scene *sc)
 {
-	t_vec2 org;
-	t_vec2 tail;
+	float off = 1.0;
 
-	org = ndc_to_screen(get_vertex_ndc((t_vec4){0, 0, 0, 1}, sc), sc);
-	tail = ndc_to_screen(get_vertex_ndc((t_vec4){20, 0, 0, 1}, sc), sc);
-	put_vertex((t_vec4){20, 0, 0, 1}, (t_color){255, 0, 0, 0}, sc);
-	draw_line(org, tail, (t_color){255, 0, 0, 0}, sc);
-
-	put_vertex((t_vec4){0, 20, 0, 1}, (t_color){0, 255, 0, 0}, sc);
-	tail = ndc_to_screen(get_vertex_ndc((t_vec4){0, 20, 0, 1}, sc), sc);
-	draw_line(org, tail, (t_color){0, 255, 0, 0}, sc);
-
-	put_vertex((t_vec4){0, 0, 20, 1}, (t_color){0, 0, 255, 0}, sc);
-	tail = ndc_to_screen(get_vertex_ndc((t_vec4){0, 0, 20, 1}, sc), sc);
-	draw_line(org, tail, (t_color){0, 0, 255, 0}, sc);
+	process_line((t_vec4){0, 0, 0, 1}, (t_vec4){off, 0, 0, 1}, (t_color){255, 0, 0, 0}, sc);
+	process_line((t_vec4){0, 0, 0, 1}, (t_vec4){0, off, 0, 1}, (t_color){0, 255, 0, 0}, sc);
+	process_line((t_vec4){0, 0, 0, 1}, (t_vec4){0, 0, off, 1}, (t_color){0, 0, 255, 0}, sc);
 }
 
-void draw_line(t_vec2 a, t_vec2 b, t_color c, t_scene *sc)
+void put_dda_line(t_vec2 a, t_vec2 b, t_color c, t_scene *sc)
 {
 	int dx;
 	int dy;
@@ -98,5 +69,148 @@ void draw_line(t_vec2 a, t_vec2 b, t_color c, t_scene *sc)
 		x += x_step;
 		y += y_step;
 		++i;
+	}
+}
+
+void put_naive_line(t_vec2 a, t_vec2 b, t_color c, t_scene *sc)
+{
+	int tmp;
+	int dx;
+	int dy;
+	float m;
+	float mb;
+
+	dx = b.x - a.x;
+	dy = b.y - a.y;
+
+	if (a.x == b.x)
+	{
+		if (b.y < a.y)
+		{
+			tmp = a.y;
+			a.y = b.y;
+			b.y = tmp;
+		}
+		while (a.y < b.y)
+		{
+			ftmlx_img_set_pxl_color(sc->canvas, a.x, a.y, ftmlx_get_color_int(c));
+			++a.y;
+		}
+		return;
+	}
+	m = (float)dy / dx;
+	mb = a.y - a.x * m;
+	if (-1.0 <= m && m <= 1.0)
+	{
+		if (b.x < a.x)
+		{
+			tmp = a.x;
+			a.x = b.x;
+			b.x = tmp;
+		}
+		while (a.x < b.x)
+		{
+			ftmlx_img_set_pxl_color(sc->canvas, a.x, a.x * m + mb, ftmlx_get_color_int(c));
+			++a.x;
+		}
+	}
+	else
+	{
+		if (b.y < a.y)
+		{
+			tmp = a.y;
+			a.y = b.y;
+			b.y = tmp;
+		}
+		while (a.y < b.y)
+		{
+			ftmlx_img_set_pxl_color(sc->canvas, (a.y - mb) / m, a.y, ftmlx_get_color_int(c));
+			++a.y;
+		}
+	}
+}
+
+void put_bresen_line(t_vec2 a, t_vec2 b, t_color c, t_scene *sc)
+{
+	int dx = b.x - a.x;
+	int dy = b.y - a.y;
+	int tmp;
+
+	if (dx == 0)
+	{
+		if (b.y < a.y)
+		{
+			tmp = a.y;
+			a.y = b.y;
+			b.y = tmp;
+		}
+		while (a.y < b.y)
+		{
+			ftmlx_img_set_pxl_color(sc->canvas, a.x, a.y, ftmlx_get_color_int(c));
+			++a.y;
+		}
+		return;
+	}
+
+	int inc_offset;
+	int offset = 0;
+	int threshold;
+	int threshold_inc;
+	int inc_axis;
+	float m = (float)dy / dx;
+
+	dx = ft_abs(dx);
+	dy = ft_abs(dy);
+	if (m < 0)
+		inc_axis = -1;
+	else
+		inc_axis = 1;
+	if (-1.0 <= m && m <= 1.0)
+	{
+		inc_offset = dy * 2;
+		threshold = dx;
+		threshold_inc = dx * 2;
+		if (b.x < a.x)
+		{
+			tmp = a.x;
+			a.x = b.x;
+			b.x = tmp;
+			a.y = b.y;
+		}
+		while (a.x < b.x)
+		{
+			ftmlx_img_set_pxl_color(sc->canvas, a.x, a.y, ftmlx_get_color_int(c));
+			offset += inc_offset;
+			if (offset >= threshold)
+			{
+				a.y += inc_axis;
+				threshold += threshold_inc;
+			}
+			++a.x;
+		}
+	}
+	else
+	{
+		inc_offset = dx * 2;
+		threshold = dy;
+		threshold_inc = dy * 2;
+		if (b.y < a.y)
+		{
+			tmp = a.y;
+			a.y = b.y;
+			b.y = tmp;
+			a.x = b.x;
+		}
+		while (a.y < b.y)
+		{
+			ftmlx_img_set_pxl_color(sc->canvas, a.x, a.y, ftmlx_get_color_int(c));
+			offset += inc_offset;
+			if (offset >= threshold)
+			{
+				a.x += inc_axis;
+				threshold += threshold_inc;
+			}
+			++a.y;
+		}
 	}
 }

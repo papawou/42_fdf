@@ -4,10 +4,10 @@ int render(t_scene *sc)
 {
 	reset_img(sc->canvas);
 	draw_map(sc);
-	//print_axis(sc);
-	ftmlx_img_set_pxl_color(sc->canvas, sc->wh.x / 2, sc->wh.y / 2, ftmlx_get_color_int((t_color){127, 127, 127, 0}));
-	put_vertex((t_vec4){0, 0, 0, 1}, (t_color){0, 255, 0, 0}, sc);
 
+	ftmlx_img_set_pxl_color(sc->canvas, sc->wh.x / 2, sc->wh.y / 2, ftmlx_get_color_int((t_color){127, 127, 127, 0}));
+	process_vertex((t_vec4){0, 0, 0, 1}, (t_color){255, 255, 255, 0}, sc);
+	draw_axis(sc);
 	mlx_put_image_to_window(sc->mlx, sc->win, sc->canvas->img, 0, 0);
 	return 0;
 }
