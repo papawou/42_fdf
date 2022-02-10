@@ -2,14 +2,26 @@
 
 int render(t_scene *sc)
 {
-	reset_img(sc->canvas);
+	fill_img(sc->canvas, (t_color){0, 0, 0, 255});
 	draw_map(sc);
 
-	ftmlx_img_set_pxl_color(sc->canvas, sc->wh.x / 2, sc->wh.y / 2, ftmlx_get_color_int((t_color){127, 127, 127, 0}));
-	process_vertex((t_vec4){0, 0, 0, 1}, (t_color){255, 255, 255, 0}, sc);
-	draw_axis(sc);
-	mlx_put_image_to_window(sc->mlx, sc->win, sc->canvas->img, 0, 0);
+	ftmlx_img_set_pxl_color(sc->canvas, sc->ft.wh.x / 2, sc->ft.wh.y / 2, ftmlx_get_color_int((t_color){127, 127, 127, 0}));
+	ftmlx_put_vertex(sc->ft3d, (t_vec4){0, 0, 0, 1}, (t_color){255, 255, 255, 0});
+	ftmlx_draw_axis(sc->ft3d, 1.0);
+
+	mlx_put_image_to_window(sc->ft.mlx, sc->ft.win, sc->canvas->img, 0, 0);
 	return 0;
+}
+
+void setup_cam(t_scene *sc)
+{
+	t_transform tranf = (t_transform){euler_to_quat((t_euler){-35.264, 45, 0}),
+																		{0, 0, 0}};
+	tranf = transform_mult_vec(tranf, (t_vec3){0, 0, 10.0});
+	float scale = 0.05;
+	t_mat4 proj = ftmlx_create_orth_proj(sc->ft.wh.x * scale, sc->ft.wh.y * scale, 1000, 0);
+	// t_mat4 proj = create_perspx_proj(90.0, sc->ft.wh.x / sc->ft.wh.y, 1.0, 1000);
+	ftmlx_init_cam(tranf, proj, &sc->cam);
 }
 
 int parse_map(t_scene *sc)
@@ -38,18 +50,28 @@ int main(int argc, char *argv[])
 
 	t_scene sc;
 
+	init_ftmlx(300, 200, &sc.ft);
 	setup_cam(&sc);
-	parse_map(&sc);
-	sc.mlx = mlx_init();
-	if (sc.mlx == NULL)
-	{
-		ft_putstr_fd("MLX_INIT() RETURN NULL", 1);
-		return 1;
-	}
-	sc.win = mlx_new_window(sc.mlx, sc.wh.x, sc.wh.y, "fdf");
-	sc.canvas = ftmlx_new_img(sc.mlx, sc.wh.x, sc.wh.y);
+	sc.canvas = ftmlx_new_img(sc.ft.mlx, sc.ft.wh.x, sc.ft.wh.y);
 
+	sc.ft3d = (t_ftmlx3d){&sc.ft.wh, &sc.cam.proj, sc.canvas};
+
+	parse_map(&sc);
 	render(&sc);
-	mlx_loop(sc.mlx);
+	mlx_loop(sc.ft.mlx);
 	return 0;
 }
+
+// libftmlx
+/*
+typdef keyboard
+close window(with *function free)
+
+draw_line
+ passing gradient
+
+using scene as big object in ftmlx and sub struct for prroject varaibles?
+*/
+
+/*
+ */

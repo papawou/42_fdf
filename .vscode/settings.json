@@ -16,6 +16,9 @@
 		"color.h": "c",
 		"cmath": "c",
 		"libft.h": "c",
-		"limits": "c"
+		"limits": "c",
+		"cam.h": "c",
+		"stdlib.h": "c",
+		"draw.h": "c"
 	}
 }
