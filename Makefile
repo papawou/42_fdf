@@ -10,13 +10,13 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c draw.c
+SRC := main.c draw.c controls.c shader_map.c
 
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 
 LIBS := ./libs/libftmlx/libftmlx.a ./libs/libft/libft.a ./libs/mlx/libmlx.a -lXext -lX11 -lm
-LIBSINC := -I./libs/libftmlx/inc -I./libs/libft/inc -I./libs/mlx
+LIBSINC := -I./libs/libftmlx/inc -I./libs/libft/inc -I./libs/mlx -I/usr/lib
 
 all : $(NAME)
 

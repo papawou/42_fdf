@@ -5,7 +5,6 @@
       "label": "make_debug",
       "command": "make",
       "args": [
-				"re",
 				"DEBUG=1"
       ],
       "options": {

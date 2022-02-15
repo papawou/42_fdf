@@ -18,10 +18,19 @@ void draw_map(t_scene *sc)
 
 void draw_face(t_vec4 a, t_vec4 b, t_scene *sc)
 {
+	shader_map(a, b, sc);
+	shader_map((t_vec4){a.x, 0, a.z, 1}, (t_vec4){b.x, 0, b.z, 1}, sc);
+	shader_map((t_vec4){a.x, 0, a.z, 1}, (t_vec4){a.x, a.y, a.z, 1}, sc);
+}
+
+/*
+void draw_face(t_vec4 a, t_vec4 b, t_scene *sc)
+{
 	ftmlx_put_line(sc->ft3d, a, b, (t_color){255, 0, 0, 0});
 	ftmlx_put_line(sc->ft3d, (t_vec4){a.x, 0, a.z, 1}, (t_vec4){b.x, 0, b.z, 1}, (t_color){255, 0, 0, 0});
 	ftmlx_put_line(sc->ft3d, (t_vec4){a.x, 0, a.z, 1}, (t_vec4){a.x, a.y, a.z, 1}, (t_color){255, 0, 0, 0});
 }
+*/
 
 void draw_column(t_vec4 org, t_scene *sc)
 {

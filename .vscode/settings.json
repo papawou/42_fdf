@@ -19,6 +19,11 @@
 		"limits": "c",
 		"cam.h": "c",
 		"stdlib.h": "c",
-		"draw.h": "c"
+		"draw.h": "c",
+		"keysymdef.h": "c",
+		"keysym.h": "c",
+		"x.h": "c",
+		"raster.h": "c",
+		"gradient.h": "c"
 	}
 }
