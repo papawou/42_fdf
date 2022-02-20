@@ -20,14 +20,14 @@ typedef struct s_scene
 
 // draw
 void draw_map(t_scene *sc);
-void draw_face(t_vec4 a, t_vec4 b, t_scene *sc);
-void draw_column(t_vec4 org, t_scene *sc);
+void draw_face(t_fvec4 a, t_fvec4 b, t_scene *sc);
+void draw_column(t_fvec4 org, t_scene *sc);
 void setup_cam(t_scene *sc);
 
 //controls
 void rotate_camera(t_quat q, t_ftcam *cam);
 
 //shaders
-int shader_map(t_vec4 a, t_vec4 b, t_scene *sc);
+int shader_map(t_fvec4 a, t_fvec4 b, t_scene *sc);
 
 #endif

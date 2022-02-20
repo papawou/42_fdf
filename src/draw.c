@@ -2,41 +2,26 @@
 
 void draw_map(t_scene *sc)
 {
+	int **map;
 	int x = 0;
 	int z = 0;
+	
+	map = sc->map;
 	while (z < sc->map_size.y)
 	{
 		x = 0;
 		while (x < sc->map_size.x)
 		{
-			draw_column((t_vec4){x, sc->map[z][x], z, 1}, sc);
+			if (x < sc->map_size.x - 1)
+				shader_map((t_fvec4){x, map[z][x], z, 1}, (t_fvec4){x + 1, map[z][x + 1], z, 1}, sc);
+			if (z < sc->map_size.y - 1)
+				shader_map((t_fvec4){x, map[z][x], z, 1}, (t_fvec4){x, map[z + 1][x], z + 1, 1}, sc);
 			++x;
 		}
 		++z;
 	}
 }
 
-void draw_face(t_vec4 a, t_vec4 b, t_scene *sc)
-{
-	shader_map(a, b, sc);
-	shader_map((t_vec4){a.x, 0, a.z, 1}, (t_vec4){b.x, 0, b.z, 1}, sc);
-	shader_map((t_vec4){a.x, 0, a.z, 1}, (t_vec4){a.x, a.y, a.z, 1}, sc);
-}
-
-/*
-void draw_face(t_vec4 a, t_vec4 b, t_scene *sc)
-{
-	ftmlx_put_line(sc->ft3d, a, b, (t_color){255, 0, 0, 0});
-	ftmlx_put_line(sc->ft3d, (t_vec4){a.x, 0, a.z, 1}, (t_vec4){b.x, 0, b.z, 1}, (t_color){255, 0, 0, 0});
-	ftmlx_put_line(sc->ft3d, (t_vec4){a.x, 0, a.z, 1}, (t_vec4){a.x, a.y, a.z, 1}, (t_color){255, 0, 0, 0});
-}
-*/
-
-void draw_column(t_vec4 org, t_scene *sc)
-{
-	int off = 1; //->tl tr br bl ...tl
-	draw_face(org, (t_vec4){org.x + off, org.y, org.z, 1}, sc);
-	draw_face((t_vec4){org.x + off, org.y, org.z, 1}, (t_vec4){org.x + off, org.y, org.z + off, 1}, sc);
-	draw_face((t_vec4){org.x + off, org.y, org.z + off, 1}, (t_vec4){org.x, org.y, org.z + off, 1}, sc);
-	draw_face((t_vec4){org.x, org.y, org.z + off, 1}, org, sc);
-}
+//2 triangles form square
+//backface culling
+//z depth buffer

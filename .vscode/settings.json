@@ -24,6 +24,9 @@
 		"keysym.h": "c",
 		"x.h": "c",
 		"raster.h": "c",
-		"gradient.h": "c"
+		"gradient.h": "c",
+		"graphics.h": "c",
+		"pipeline.h": "c",
+		"trans.h": "c"
 	}
 }
