@@ -1,11 +1,12 @@
 #include "fdf.h"
+#include "lib_utils.h"
 
 void draw_map(t_scene *sc)
 {
 	int **map;
 	int x = 0;
 	int z = 0;
-	
+
 	map = sc->map;
 	while (z < sc->map_size.y)
 	{
@@ -22,6 +23,19 @@ void draw_map(t_scene *sc)
 	}
 }
 
-//2 triangles form square
-//backface culling
-//z depth buffer
+void draw_map_triangle(t_scene *sc)
+{
+	int **map;
+	int x = 0;
+	int z = 0;
+	t_fvec4 a, b, c;
+
+	a = (t_fvec4){1, 1, 0, 1};
+	b = (t_fvec4){0, 0, 0, 1};
+	c = (t_fvec4){1, -1, 0, 1};
+	shader_map_triangle(a, b, c, sc);
+}
+
+// 2 triangles form square
+// backface culling
+// z depth buffer

@@ -27,6 +27,8 @@
 		"gradient.h": "c",
 		"graphics.h": "c",
 		"pipeline.h": "c",
-		"trans.h": "c"
+		"trans.h": "c",
+		"lib_utils.h": "c",
+		"print.h": "c"
 	}
 }

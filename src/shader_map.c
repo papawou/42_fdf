@@ -3,31 +3,31 @@
 #include <libftmlx.h>
 #include <libft.h>
 
-typedef struct s_map_frag
+typedef struct s_frag
 {
-	t_fvec2 pos;
+	t_vec2 pos;
 	float grad_alpha;
-} t_map_frag;
+} t_frag;
 
-static t_map_frag shader_map_vertex(t_fvec4 v, t_scene *sc)
+static t_frag shader_map_vertex(t_fvec4 v, t_scene *sc)
 {
-	t_map_frag fv;
+	t_frag fv;
 
 	(void)sc;
 	fv.grad_alpha = (float)v.y / 50;
 	return fv;
 }
 
-static t_map_frag shader_map_lerp(t_map_frag fa, t_map_frag fb, t_fvec2 rast_point, double alpha)
+static t_frag shader_map_lerp(t_frag fa, t_frag fb, t_vec2 rast_point, double alpha)
 {
-	t_map_frag dst;
+	t_frag dst;
 
 	dst.pos = rast_point;
 	dst.grad_alpha = ft_lerp(fa.grad_alpha, fb.grad_alpha, alpha);
 	return dst;
 }
 
-static void shader_map_frag(t_map_frag frag, t_scene *sc)
+static void shader_map_frag(t_frag frag, t_scene *sc)
 {
 	static double keys[3] = {0.0, 0.5, 1.0};
 	static t_color colors[3] = {{255, 0, 0, 0}, {0, 255, 0, 0}, {0, 0, 255, 0}};
@@ -43,18 +43,24 @@ static void shader_map_frag(t_map_frag frag, t_scene *sc)
 
 int shader_map(t_fvec4 a, t_fvec4 b, t_scene *sc)
 {
-	t_map_frag fa;
-	t_map_frag fb;
-	t_raster rast;
+	t_frag fa;
+	t_frag fb;
+	t_rast_line rast;
 
 	fa = shader_map_vertex(a, sc);
 	fb = shader_map_vertex(b, sc);
+	t_fvec2 tmp_a;
+	t_fvec2 tmp_b;
 
-	if (vertex_to_screen(a, &fa.pos, *sc->ft3d.proj, *sc->ft3d.wh))
+	if (vertex_to_screen(a, &tmp_a, *sc->ft3d.proj, *sc->ft3d.wh))
 		return 1;
-	if (vertex_to_screen(b, &fb.pos, *sc->ft3d.proj, *sc->ft3d.wh))
+	if (vertex_to_screen(b, &tmp_b, *sc->ft3d.proj, *sc->ft3d.wh))
 		return 1;
 
+	fa.pos.x = tmp_a.x;
+	fa.pos.y = tmp_a.y;
+	fb.pos.x = tmp_b.x;
+	fb.pos.y = tmp_b.y;
 	rast = ftmlx_raster_line(fa.pos, fb.pos);
 	unsigned int i = 0;
 	while (i < rast.len)
@@ -62,5 +68,6 @@ int shader_map(t_fvec4 a, t_fvec4 b, t_scene *sc)
 		shader_map_frag(shader_map_lerp(fa, fb, rast.points[i], (double)i / rast.len), sc);
 		++i;
 	}
+	free_rast_line(rast);
 	return 0;
 }

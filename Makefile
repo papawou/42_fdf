@@ -10,7 +10,7 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c draw.c controls.c shader_map.c
+SRC := main.c draw.c controls.c shader_map.c shader_map_triangle.c lib_utils.c
 
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
