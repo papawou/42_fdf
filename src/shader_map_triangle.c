@@ -5,14 +5,13 @@
 typedef struct s_frag
 {
 	t_vec2 pos;
+	t_color c;
 	// lerp?
 } t_frag;
 
 static void shader_frag(t_frag frag, t_scene *sc)
 {
-	t_color c;
-	c = (t_color){frag.pos.x / sc->ft.wh.x, 255, 255, 255};
-	ftmlx_img_set_pxl_color(sc->canvas, frag.pos.x, frag.pos.y, ftmlx_get_color_int(c));
+	ftmlx_img_set_pxl_color(sc->canvas, frag.pos.x, frag.pos.y, ftmlx_get_color_int(frag.c));
 }
 
 static t_frag shader_inter(t_frag fa, t_frag fb, t_frag fc, t_vec2 point)
@@ -22,10 +21,11 @@ static t_frag shader_inter(t_frag fa, t_frag fb, t_frag fc, t_vec2 point)
 
 	w = tri_point_bar(fa.pos, fb.pos, fc.pos, point);
 	frag.pos = point;
+	frag.c = fa.c;
 	return frag;
 }
 
-int shader_map_triangle(t_fvec4 a, t_fvec4 b, t_fvec4 c, t_scene *sc)
+int shader_map_triangle(t_fvec4 a, t_fvec4 b, t_fvec4 c, t_scene *sc, t_color color)
 {
 	t_frag fa;
 	t_frag fb;
@@ -46,6 +46,7 @@ int shader_map_triangle(t_fvec4 a, t_fvec4 b, t_fvec4 c, t_scene *sc)
 	if (vertex_to_screen(c, &tmp_c, *sc->ft3d.proj, *sc->ft3d.wh))
 		return 1;
 
+	fa.c = color;
 	fa.pos.x = tmp_a.x;
 	fa.pos.y = tmp_a.y;
 	fb.pos.x = tmp_b.x;

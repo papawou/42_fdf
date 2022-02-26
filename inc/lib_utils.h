@@ -11,6 +11,5 @@ float fvec3_dot(t_fvec3 a, t_fvec3 b);
 t_fvec3	fvec3_cross(t_fvec3 a, t_fvec3 b);
 
 //shder_map_triangle.c
-int shader_map_triangle(t_fvec4 a, t_fvec4 b, t_fvec4 c, t_scene *sc);
-
+int shader_map_triangle(t_fvec4 a, t_fvec4 b, t_fvec4 c, t_scene *sc, t_color color);
 #endif

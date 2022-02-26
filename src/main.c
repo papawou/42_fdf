@@ -67,12 +67,12 @@ int parse_map(t_scene *sc)
 	sc->tr_map.v = (t_fvec3){0, 0, 0};
 	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
 
-	sc->map[0][0] = 1;
-	sc->map[0][1] = 1;
-	sc->map[0][2] = 1;
-	sc->map[1][0] = 2;
-	sc->map[1][1] = 2;
-	sc->map[1][2] = 2;
+	sc->map[0][0] = 0;
+	sc->map[0][1] = 0;
+	sc->map[0][2] = 0;
+	sc->map[1][0] = 0;
+	sc->map[1][1] = 0;
+	sc->map[1][2] = 0;
 	sc->map[2][0] = 0;
 	sc->map[2][1] = 0;
 	sc->map[2][2] = 0;
