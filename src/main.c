@@ -39,13 +39,8 @@ int render(t_scene *sc)
 {
 	fill_img(sc->canvas, (t_color){0, 0, 0, 255});
 	draw_map_triangle(sc);
-
-	//ftmlx_img_set_pxl_color(sc->canvas, sc->ft.wh.x / 2, sc->ft.wh.y / 2, ftmlx_get_color_int((t_color){127, 127, 127, 0}));
-	//ftmlx_put_vertex(sc->ft3d, (t_fvec4){0, 0, 0, 1}, (t_color){255, 255, 255, 0});
-	//ftmlx_draw_axis(sc->ft3d, 15.0);
-
+	draw_map_wire(sc);
 	mlx_put_image_to_window(sc->ft.mlx, sc->ft.win, sc->canvas->img, 0, 0);
-	mlx_string_put(sc->ft.mlx, sc->ft.win, 0, 10, ftmlx_get_color_int((t_color){255, 255, 255, 255}), "Test123test123\n123");
 	return 0;
 }
 
@@ -54,7 +49,7 @@ void setup_cam(t_scene *sc)
 	t_transform tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 200}};
 	float scale = 0.05;
 	t_mat4 proj = ftmlx_create_orth_proj(sc->ft.wh.x * scale, sc->ft.wh.y * scale, 1000, 0);
-	//t_mat4 proj = ftmlx_create_x_persp_proj(90.0, sc->ft.wh.x / sc->ft.wh.y, 1.0, 1000);
+	// t_mat4 proj = ftmlx_create_x_persp_proj(90.0, sc->ft.wh.x / sc->ft.wh.y, 1.0, 1000);
 	ftmlx_init_cam(tranf, proj, (t_fvec3){0, 0, 0}, &sc->cam);
 }
 
@@ -67,23 +62,23 @@ int parse_map(t_scene *sc)
 	sc->tr_map.v = (t_fvec3){0, 0, 0};
 	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
 
-	sc->map[0][0] = 0;
-	sc->map[0][1] = 0;
+	sc->map[0][0] = -1;
+	sc->map[0][1] = 1;
 	sc->map[0][2] = 0;
-	sc->map[1][0] = 0;
+	sc->map[1][0] = 1;
 	sc->map[1][1] = 0;
-	sc->map[1][2] = 0;
+	sc->map[1][2] = -1;
 	sc->map[2][0] = 0;
-	sc->map[2][1] = 0;
+	sc->map[2][1] = -1;
 	sc->map[2][2] = 0;
-	sc->map[3][0] = 0;
-	sc->map[3][1] = 0;
-	sc->map[3][2] = 0;
+	sc->map[3][0] = 3;
+	sc->map[3][1] = 1;
+	sc->map[3][2] = 2;
 	sc->map[4][0] = 0;
-	sc->map[4][1] = 0;
-	sc->map[4][2] = 0;
-	sc->map[5][0] = 0;
-	sc->map[5][1] = 0;
+	sc->map[4][1] = 4;
+	sc->map[4][2] = 1;
+	sc->map[5][0] = 1;
+	sc->map[5][1] = 2;
 	sc->map[5][2] = 0;
 	sc->map[6][0] = 0;
 	sc->map[6][1] = 0;
@@ -106,7 +101,7 @@ int main(int argc, char *argv[])
 	setup_cam(&sc);
 	sc.canvas = ftmlx_new_img(sc.ft.mlx, sc.ft.wh.x, sc.ft.wh.y);
 
-	sc.ft3d = (t_ftmlx3d){&sc.ft.wh, &sc.cam.proj, sc.canvas};
+	sc.ft3d = (t_ftmlx3d){&sc.cam.vp, &sc.ft.wh, sc.canvas};
 
 	parse_map(&sc);
 	render(&sc);

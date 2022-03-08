@@ -10,7 +10,7 @@ typedef struct s_scene
 	t_ftmlx ft;
 	t_ftcam cam;
 	t_ftmlx3d ft3d;
-	
+
 	t_img *canvas;
 
 	int **map;
@@ -19,16 +19,15 @@ typedef struct s_scene
 } t_scene;
 
 // draw
-void draw_map(t_scene *sc);
-void draw_face(t_fvec4 a, t_fvec4 b, t_scene *sc);
-void draw_column(t_fvec4 org, t_scene *sc);
+void draw_map_wire(t_scene *sc);
 void setup_cam(t_scene *sc);
 void draw_map_triangle(t_scene *sc);
 
-//controls
+// controls
 void rotate_camera(t_quat q, t_ftcam *cam);
 
-//shaders
-int shader_map(t_fvec4 a, t_fvec4 b, t_scene *sc);
+// shaders
+int shader_map_wire(t_fvec4 a, t_fvec4 b, t_scene *sc);
+void shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc);
 
 #endif
