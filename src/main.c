@@ -39,8 +39,10 @@ int render(t_scene *sc)
 {
 	fill_img(sc->canvas, (t_color){0, 0, 0, 255});
 	draw_map_triangle(sc);
-	draw_map_wire(sc);
+
+	//ftmlx_draw_axis(sc->ft3d, 1.0);
 	mlx_put_image_to_window(sc->ft.mlx, sc->ft.win, sc->canvas->img, 0, 0);
+
 	return 0;
 }
 
@@ -55,37 +57,32 @@ void setup_cam(t_scene *sc)
 
 int parse_map(t_scene *sc)
 {
-	sc->map_size.y = 8;
-	sc->map_size.x = 3;
+	sc->map_size.y = 4;
+	sc->map_size.x = 4;
 
 	sc->tr_map.q = (t_quat)QUAT_ID;
 	sc->tr_map.v = (t_fvec3){0, 0, 0};
 	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
 
-	sc->map[0][0] = -1;
-	sc->map[0][1] = 1;
+	sc->map[0][0] = 0;
+	sc->map[0][1] = 0;
 	sc->map[0][2] = 0;
-	sc->map[1][0] = 1;
+	sc->map[0][3] = 0;
+
+	sc->map[1][0] = 0;
 	sc->map[1][1] = 0;
-	sc->map[1][2] = -1;
+	sc->map[1][2] = 0;
+	sc->map[1][3] = 0;
+
 	sc->map[2][0] = 0;
-	sc->map[2][1] = -1;
+	sc->map[2][1] = 0;
 	sc->map[2][2] = 0;
-	sc->map[3][0] = 3;
-	sc->map[3][1] = 1;
-	sc->map[3][2] = 2;
-	sc->map[4][0] = 0;
-	sc->map[4][1] = 4;
-	sc->map[4][2] = 1;
-	sc->map[5][0] = 1;
-	sc->map[5][1] = 2;
-	sc->map[5][2] = 0;
-	sc->map[6][0] = 0;
-	sc->map[6][1] = 0;
-	sc->map[6][2] = 0;
-	sc->map[7][0] = 0;
-	sc->map[7][1] = 0;
-	sc->map[7][2] = 0;
+	sc->map[2][3] = 0;
+
+	sc->map[3][0] = 0;
+	sc->map[3][1] = 0;
+	sc->map[3][2] = 0;
+	sc->map[3][3] = 0;
 
 	return 0;
 }
