@@ -22,7 +22,7 @@ void draw_map_wire(t_scene *sc)
 	}
 }
 
-void draw_map_triangle(t_scene *sc) // shader_mesh
+void draw_map_triangle(t_scene *sc)
 {
 	t_fvec3 a, b, c;
 	int **map;
@@ -45,17 +45,4 @@ void draw_map_triangle(t_scene *sc) // shader_mesh
 		}
 		++z;
 	}
-	/*
-	t_fvec3 a, b, c;
-
-	a = (t_fvec3){1, 0, 0};
-	b = (t_fvec3){2, 0, 0};
-	c = (t_fvec3){1, 1, -1};
-	shader_map(a, b, c, sc);
-
-	a = (t_fvec3){-1, 0, 0};
-	b = (t_fvec3){0, 0, 0};
-	c = (t_fvec3){-1, 1, -1};
-	shader_map(a, b, c, sc);
-	*/
 }
