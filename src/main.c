@@ -1,9 +1,10 @@
 #include <X11/keysym.h>
+#include <fcntl.h>
 #include "fdf.h"
 
 int hook_key(int keycode, t_scene *sc)
 {
-	t_fvec3 x_dir; //tothink cam_rot(int direction) -avoid dependance of mlx
+	t_fvec3 x_dir; // tothink cam_rot(int direction) -avoid dependance of mlx
 
 	if (keycode == XK_Left)
 		rotate_camera((t_quat)euler_to_quat((t_euler){0, -1, 0}), &sc->cam);
@@ -27,7 +28,7 @@ int hook_key(int keycode, t_scene *sc)
 
 int close_me(t_scene *sc)
 {
-	//mlx_destroy_window?
+	// mlx_destroy_window?
 	ftmlx_free_img(sc->ft.mlx, sc->canvas);
 	exit(0);
 	return 0;
@@ -55,35 +56,39 @@ void setup_cam(t_scene *sc)
 	ftmlx_init_cam(tranf, proj, (t_fvec3){0, 0, 0}, &sc->cam);
 }
 
-int parse_map(t_scene *sc)
+int parse_map(char *map_path, t_scene *sc)
 {
-	sc->map_size.y = 4;
-	sc->map_size.x = 4;
+	char *line;
+	int fd_map;
+	int i;
+	// sc->tr_map.q = (t_quat)QUAT_ID;
+	// sc->tr_map.v = (t_fvec3){0, 0, 0};
 
-	sc->tr_map.q = (t_quat)QUAT_ID;
-	sc->tr_map.v = (t_fvec3){0, 0, 0};
-	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
+	fd_map = open(map_path, O_RDONLY);
+	line = get_next_line(fd_map);
+	sc->map_size.x = ft_strlen(line);
+	i = 0;
+	while (line)
+	{
+		free(line);
+		get_next_line(fd_map);
+		++i;
+	}
+	sc->map_size.y = i;
+	sc->map = malloc(sizeof(int *) * sc->map_size.y);
+	line = get_next_line(fd_map); // reopen?
+	i = 0;
+	while (line)
+	{
+		sc->map[i] = malloc(sc->map_size.x * sizeof(int));
+		while (atoi())
+		{
+			
+		}
 
-	sc->map[0][0] = 0;
-	sc->map[0][1] = 0;
-	sc->map[0][2] = 0;
-	sc->map[0][3] = 0;
-
-	sc->map[1][0] = 0;
-	sc->map[1][1] = 0;
-	sc->map[1][2] = 0;
-	sc->map[1][3] = 0;
-
-	sc->map[2][0] = 0;
-	sc->map[2][1] = 0;
-	sc->map[2][2] = 0;
-	sc->map[2][3] = 0;
-
-	sc->map[3][0] = 0;
-	sc->map[3][1] = 0;
-	sc->map[3][2] = 0;
-	sc->map[3][3] = 0;
-
+		++i;
+		line = get_next_line(fd_map);
+	}
 	return 0;
 }
 
@@ -92,12 +97,13 @@ int main(int argc, char *argv[])
 	(void)argc;
 	(void)argv;
 	t_scene sc;
+	t_char map[];
 
 	ftmlx_init(700, 700, &sc.ft);
 	setup_cam(&sc);
 	sc.canvas = ftmlx_new_img(sc.ft.mlx, sc.ft.wh.x, sc.ft.wh.y);
 	sc.ft3d = (t_ftmlx3d){&sc.cam.vp, &sc.ft.wh, sc.canvas};
-	parse_map(&sc);
+	map = parse_map(argv[1], &sc);
 	render(&sc);
 
 	mlx_hook(sc.ft.win, 17, 0, close_me, &sc);
