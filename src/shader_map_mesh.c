@@ -19,7 +19,7 @@ int get_color_texture(float u, float v, t_mlx mlx)
 	int y;
 
 	if (text == NULL)
-		text = ftmlx_new_xpm_img(mlx, "./bin/img/board5.xpm");
+		text = ftmlx_new_xpm_img(mlx, "./bin/img/boardgood.xpm");
 	x = ft_lerp(0, text->width, u);
 	y = ft_lerp(0, text->height, v);
 
@@ -29,8 +29,6 @@ int get_color_texture(float u, float v, t_mlx mlx)
 
 typedef struct s_frag_attr
 {
-	t_fvec3 xyz;
-
 	t_fvec2 uv;
 } t_frag_attr;
 
@@ -39,9 +37,6 @@ static void attr_mult(void *attr_ptr, float w)
 	t_frag_attr *attr;
 
 	attr = attr_ptr;
-	attr->xyz.x *= w;
-	attr->xyz.y *= w;
-	attr->xyz.z *= w;
 
 	attr->uv.x *= w;
 	attr->uv.x *= w;
@@ -56,10 +51,6 @@ static void frag_inter(void *t_ptr[3], void *attr_ptr, t_fvec3 w)
 	attr = attr_ptr;
 	attr->uv.x = tri_barerp(t[0]->uv.x, t[1]->uv.x, t[2]->uv.x, w);
 	attr->uv.y = tri_barerp(t[0]->uv.y, t[1]->uv.y, t[2]->uv.y, w);
-
-	attr->xyz.x = tri_barerp(t[0]->xyz.x, t[1]->xyz.x, t[2]->xyz.x, w);
-	attr->xyz.y = tri_barerp(t[0]->xyz.y, t[1]->xyz.y, t[2]->xyz.y, w);
-	attr->xyz.z = tri_barerp(t[0]->xyz.z, t[1]->xyz.z, t[2]->xyz.z, w);
 }
 
 static t_color frag_shader(t_frag *f, void *params)
@@ -70,8 +61,10 @@ static t_color frag_shader(t_frag *f, void *params)
 	sc = params;
 	attr = f->attr;
 	int c = get_color_texture(attr->uv.x, attr->uv.y, sc->ft.mlx);
-	// c = (t_color){255 * attr->xyz.x, 255 * attr->xyz.y, 255 * attr->xyz.z, 0};
-	return ftmlx_get_int_color(c);
+	t_color test = ftmlx_get_int_color(c);
+
+	test.b = (f->coord.z + 1.0) / 2.0;
+	return test;
 }
 
 static void vertex_shader(t_frag *f, void *params)
@@ -84,10 +77,6 @@ static void vertex_shader(t_frag *f, void *params)
 
 	attr->uv.x = f->coord.x / (sc->map_size.x - 1);
 	attr->uv.y = f->coord.z / (sc->map_size.y - 1);
-
-	attr->xyz.x = f->coord.x / 18;
-	attr->xyz.y = f->coord.y / 10;
-	attr->xyz.z = f->coord.z / 10;
 }
 
 void shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc)

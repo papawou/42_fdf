@@ -71,8 +71,8 @@ void setup_cam(t_scene *sc)
 	//  tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 200}};
 	// proj = ftmlx_create_orth_proj(sc->ft.wh.x * scale, sc->ft.wh.y * scale, 1000, 10);
 
-	tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 30.0}};
-	proj = ftmlx_create_x_persp_proj(70.0, (float)sc->ft.wh.x / sc->ft.wh.y, 100.0, 10.0);
+	tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 15.0}};
+	proj = ftmlx_create_x_persp_proj(60.0, (float)sc->ft.wh.x / sc->ft.wh.y, 100.0, 1.0);
 
 	ftmlx_init_cam(tranf, proj, (t_fvec3){0, 0, 0}, &sc->cam);
 }
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 
 	if (argc < 1)
 		return 0;
-	if (ftmlx_init(700, 700, &sc.ft))
+	if (ftmlx_init(500, 500, &sc.ft))
 		return 0;
 	setup_cam(&sc);
 	sc.depth_buffer = (float **)ft_malloc_cont_2d(sc.ft.wh.y, sc.ft.wh.x, sizeof(float));
