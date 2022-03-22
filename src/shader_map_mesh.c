@@ -62,8 +62,6 @@ static t_color frag_shader(t_frag *f, void *params)
 	attr = f->attr;
 	int c = get_color_texture(attr->uv.x, attr->uv.y, sc->ft.mlx);
 	t_color test = ftmlx_get_int_color(c);
-
-	test.b = (f->coord.z + 1.0) / 2.0;
 	return test;
 }
 

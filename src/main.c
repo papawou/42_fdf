@@ -71,8 +71,8 @@ void setup_cam(t_scene *sc)
 	//  tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 200}};
 	// proj = ftmlx_create_orth_proj(sc->ft.wh.x * scale, sc->ft.wh.y * scale, 1000, 10);
 
-	tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 15.0}};
-	proj = ftmlx_create_x_persp_proj(60.0, (float)sc->ft.wh.x / sc->ft.wh.y, 100.0, 1.0);
+	tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 25.0}};
+	proj = ftmlx_create_x_persp_proj(90.0, (float)sc->ft.wh.x / sc->ft.wh.y, 30.0, 10.0);
 
 	ftmlx_init_cam(tranf, proj, (t_fvec3){0, 0, 0}, &sc->cam);
 }
