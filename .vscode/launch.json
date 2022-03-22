@@ -2,12 +2,14 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"justMyCode":false ,
+			"justMyCode": false,
 			"name": "launch_debug",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/fdf.out",
-			"args": [],
+			"args": [
+				"./bin/test_maps/plat.fdf"
+			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

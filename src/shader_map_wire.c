@@ -14,7 +14,7 @@ static t_frag_wire shader_map_vertex(t_fvec4 v, t_scene *sc)
 	t_frag_wire fv;
 
 	(void)sc;
-	fv.grad_alpha = (float)v.y / 50;
+	fv.grad_alpha = (float)v.y / 1;
 	return fv;
 }
 

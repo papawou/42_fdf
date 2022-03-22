@@ -1,5 +1,7 @@
 #include <libftmlx.h>
 #include "fdf.h"
+#include "libft/mem.h"
+#include "libft.h"
 
 // model
 // world
@@ -9,9 +11,27 @@
 // ndc
 // screen
 
+int get_color_texture(float u, float v, t_mlx mlx)
+{
+
+	static t_img *text = NULL;
+	int x;
+	int y;
+
+	if (text == NULL)
+		text = ftmlx_new_xpm_img(mlx, "./bin/img/board5.xpm");
+	x = ft_lerp(0, text->width, u);
+	y = ft_lerp(0, text->height, v);
+
+	int c = *ftmlx_img_get_pxl(text, x, y);
+	return c;
+}
+
 typedef struct s_frag_attr
 {
-	float alpha;
+	t_fvec3 xyz;
+
+	t_fvec2 uv;
 } t_frag_attr;
 
 static void attr_mult(void *attr_ptr, float w)
@@ -19,15 +39,12 @@ static void attr_mult(void *attr_ptr, float w)
 	t_frag_attr *attr;
 
 	attr = attr_ptr;
-	attr->alpha *= w;
-}
+	attr->xyz.x *= w;
+	attr->xyz.y *= w;
+	attr->xyz.z *= w;
 
-static void vertex_shader(t_frag *f)
-{
-	t_frag_attr *attr;
-
-	attr = f->attr;
-	attr->alpha = f->coord.x / 4.0;
+	attr->uv.x *= w;
+	attr->uv.x *= w;
 }
 
 static void frag_inter(void *t_ptr[3], void *attr_ptr, t_fvec3 w)
@@ -37,31 +54,62 @@ static void frag_inter(void *t_ptr[3], void *attr_ptr, t_fvec3 w)
 
 	t = (t_frag_attr **)t_ptr;
 	attr = attr_ptr;
-	attr->alpha = tri_barerp(t[0]->alpha, t[1]->alpha, t[2]->alpha, w);
+	attr->uv.x = tri_barerp(t[0]->uv.x, t[1]->uv.x, t[2]->uv.x, w);
+	attr->uv.y = tri_barerp(t[0]->uv.y, t[1]->uv.y, t[2]->uv.y, w);
+
+	attr->xyz.x = tri_barerp(t[0]->xyz.x, t[1]->xyz.x, t[2]->xyz.x, w);
+	attr->xyz.y = tri_barerp(t[0]->xyz.y, t[1]->xyz.y, t[2]->xyz.y, w);
+	attr->xyz.z = tri_barerp(t[0]->xyz.z, t[1]->xyz.z, t[2]->xyz.z, w);
 }
 
-static t_color frag_shader(t_frag *f)
+static t_color frag_shader(t_frag *f, void *params)
 {
 	t_frag_attr *attr;
-	t_color c;
+	t_scene *sc;
 
+	sc = params;
 	attr = f->attr;
-	c = (t_color){255 * attr->alpha, 0, 0, 255};
-	return c;
+	int c = get_color_texture(attr->uv.x, attr->uv.y, sc->ft.mlx);
+	// c = (t_color){255 * attr->xyz.x, 255 * attr->xyz.y, 255 * attr->xyz.z, 0};
+	return ftmlx_get_int_color(c);
+}
+
+static void vertex_shader(t_frag *f, void *params)
+{
+	t_frag_attr *attr;
+	t_scene *sc;
+
+	sc = params;
+	attr = f->attr;
+
+	attr->uv.x = f->coord.x / (sc->map_size.x - 1);
+	attr->uv.y = f->coord.z / (sc->map_size.y - 1);
+
+	attr->xyz.x = f->coord.x / 18;
+	attr->xyz.y = f->coord.y / 10;
+	attr->xyz.z = f->coord.z / 10;
 }
 
 void shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc)
 { //?mat4 model
-	t_shader shader;
+	static t_shader shader;
+	static int test_init = 1;
 
-	shader.attr_mult = attr_mult;
-	shader.frag_inter = frag_inter;
-	shader.vertex_shader = vertex_shader;
-	shader.frag_shader = frag_shader;
-	shader.attr_size = sizeof(t_frag_attr);
+	if (test_init)
+	{
+		shader.attr_mult = attr_mult;
+		shader.frag_inter = frag_inter;
+		shader.vertex_shader = vertex_shader;
+		shader.frag_shader = frag_shader;
+		shader.attr_size = sizeof(t_frag_attr);
 
-	shader.mvp = &sc->cam.vp;
-	shader.wh = &sc->ft.wh;
-	shader.canvas = sc->canvas;
+		shader.mvp = &sc->cam.vp;
+		shader.wh = &sc->ft.wh;
+		shader.canvas = sc->canvas;
+		shader.depth_buffer = sc->depth_buffer;
+
+		shader.params = sc;
+		test_init = 0;
+	}
 	shader_tri((t_fvec3 *[3]){&a, &b, &c}, &shader);
 }

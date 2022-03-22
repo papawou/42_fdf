@@ -4,7 +4,7 @@
 #include <sys/types.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 2
+# define BUFFER_SIZE 42
 #endif
 
 typedef struct s_page

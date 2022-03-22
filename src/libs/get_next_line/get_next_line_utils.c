@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-#include "get_next_line.h"
+#include "libs/get_next_line.h"
 
 char	*ft_strchr(const char *src, const char c)
 {

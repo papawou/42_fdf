@@ -31,6 +31,7 @@
 		"lib_utils.h": "c",
 		"print.h": "c",
 		"shader.h": "c",
-		"mlx_int.h": "c"
+		"mlx_int.h": "c",
+		"random": "c"
 	}
 }
