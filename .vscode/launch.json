@@ -8,7 +8,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/fdf.out",
 			"args": [
-				"./bin/test_maps/plat10.fdf"
+				"./bin/test_maps/42.fdf"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
