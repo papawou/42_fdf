@@ -4,7 +4,7 @@ CC := gcc
 CFLAGS :=	-Wall -Wextra -Werror
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
-CFLAGS += -Wno-unused-variable -Wno-unused-but-set-variable -g -fdiagnostics-color=always
+CFLAGS += -Wno-unused-variable -g -fdiagnostics-color=always
 endif
 
 INC := -I./inc
@@ -16,13 +16,13 @@ libs/get_next_line/get_next_line_utils.c	libs/get_next_line/get_next_line.c
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 
-LIBS := ./libs/libftmlx/libftmlx.a ./libs/libft/libft.a ./libs/mlx/libmlx.a -lXext -lX11 -lm
+LIBS := ./libs/libftmlx/libftmlx.a ./libs/libft/libft.a ./libs/mlx/libmlx.a
 LIBSINC := -I./libs/libftmlx/inc -I./libs/libft/inc -I./libs/mlx -I/usr/lib
 
 all : $(NAME)
 
 $(NAME)	:	$(OBJ) $(LIBS)
-	$(CC) $(CFLAGS) -o $@ $(OBJ) $(INC) $(LIBSINC) $(LIBS)
+	$(CC) $(CFLAGS) -framework OpenGL -framework AppKit -o $@ $(OBJ) $(INC) $(LIBSINC) $(LIBS)
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -o $@ -c $< $(INC) $(LIBSINC)

@@ -55,7 +55,10 @@ char	*get_next_line(int fd)
 	entry_page = NULL;
 	buf_cursor = ft_strchr(buf, '\n');
 	if (*buf_cursor != '\n')
-		return gen_out(buf, entry_page, (buf_cursor - buf) + read_book(&entry_page, fd));
+	{
+		size_t size_test = read_book(&entry_page, fd);
+		return gen_out(buf, entry_page, (buf_cursor - buf) + size_test);
+	}
 	else if(*buf_cursor)
 		return gen_out(buf, entry_page, buf_cursor - buf + 1);
 	else

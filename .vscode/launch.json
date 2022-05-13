@@ -8,13 +8,13 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/fdf.out",
 			"args": [
-				"./bin/test_maps/42.fdf"
+				"./bin/test_maps/mars.fdf"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
-			"MIMode": "gdb",
+			"MIMode": "lldb",
 			"setupCommands": [
 				{
 					"description": "Enable pretty-printing for gdb",
@@ -23,7 +23,6 @@
 				}
 			],
 			"preLaunchTask": "make_debug",
-			"miDebuggerPath": "/usr/bin/gdb"
 		}
 	]
 }

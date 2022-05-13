@@ -1,6 +1,10 @@
-#include <X11/keysym.h>
 #include <fcntl.h>
 #include "fdf.h"
+
+#define XK_Left 123
+#define XK_Right 124
+#define XK_Down 125
+#define XK_Up 126
 
 void draw_debug(t_scene *sc)
 {
@@ -42,15 +46,16 @@ int hook_key(int keycode, t_scene *sc)
 		x_dir = quat_mult_vec(sc->cam.tranf.q, (t_fvec3){1, 0, 0});
 		rotate_camera(axisg_to_quat((t_axisg){x_dir.x, x_dir.y, x_dir.z, 1}), &sc->cam);
 	}
-	else if (keycode == XK_Escape)
+	/*else if (keycode == XK_Escape)
 		return close_me(sc);
+	*/
 	ftmlx_update_cam(&sc->cam);
 	return 0;
 }
 
 int render(t_scene *sc)
 {
-	fill_img(sc->canvas, (t_color){0, 0, 0, 255});
+	fill_img(sc->canvas, (t_color){127, 127, 127, 0});
 	ft_bzero(sc->depth_buffer[0], sizeof(float) * sc->ft.wh.y * sc->ft.wh.x);
 	draw_map_triangle(sc);
 	//  draw_map_wire(sc);
@@ -65,14 +70,18 @@ void setup_cam(t_scene *sc)
 	t_mat4 proj;
 	float scale;
 
-	// tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 200}};
-	// scale = 0.05;
-	//  tranf = quat_mult_transform(euler_to_quat((t_euler){0, 0, 0}), tranf);
-	//  tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 200}};
-	// proj = ftmlx_create_orth_proj(sc->ft.wh.x * scale, sc->ft.wh.y * scale, 1000, 10);
+	 tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 200}};
+	 scale = 0.05;
+	tranf = quat_mult_transform(euler_to_quat((t_euler){-90, 0, 0}), tranf);
+	tranf.v.x = 100;
+	tranf.v.z=  100;
+	proj = ftmlx_create_orth_proj(sc->ft.wh.x * scale, sc->ft.wh.y * scale, 1000, 10);
 
-	tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 25.0}};
-	proj = ftmlx_create_x_persp_proj(90.0, (float)sc->ft.wh.x / sc->ft.wh.y, 30.0, 10.0);
+	//tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}), (t_fvec3){0, 0, 100.0}};
+	//tranf = quat_mult_transform(euler_to_quat((t_euler){-90, 0,0}), tranf);
+	//tranf.v.x = 50;
+	//tranf.v.z = 50;
+	//proj = ftmlx_create_x_persp_proj(90.0, (float)sc->ft.wh.x / sc->ft.wh.y, 500.0, 5.0);
 
 	ftmlx_init_cam(tranf, proj, (t_fvec3){0, 0, 0}, &sc->cam);
 }
