@@ -4,6 +4,7 @@
 [submodule "libs/libftmlx"]
 	path = libs/libftmlx
 	url = git@github.com:papawou/42_libftmlx.git
+	branch = 42_with_mlx_inside
 [submodule "libs/mlx"]
 	path = libs/mlx
 	url = https://github.com/42Paris/minilibx-linux.git
