@@ -1,7 +1,7 @@
 #include <libftmlx.h>
+#include <libft.h>
+
 #include "fdf.h"
-#include "libft/mem.h"
-#include "libft.h"
 
 // model
 // world
