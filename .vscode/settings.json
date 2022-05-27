@@ -32,6 +32,8 @@
 		"print.h": "c",
 		"shader.h": "c",
 		"mlx_int.h": "c",
-		"random": "c"
+		"random": "c",
+		"ftmlx_color.h": "c",
+		"ftmlx_vec.h": "c"
 	}
 }
