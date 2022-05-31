@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:43 by kmendes           #+#    #+#             */
-/*   Updated: 2022/05/31 04:31:43 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/05/31 14:10:37 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <libftmlx.h>
 #include <libft.h>
 
+/*
 typedef struct s_frag_wire
 {
 	t_vec2 pos;
@@ -83,3 +84,4 @@ int shader_map_wire(t_fvec4 a, t_fvec4 b, t_scene *sc)
 	free_rast_line(rast);
 	return 0;
 }
+*/
