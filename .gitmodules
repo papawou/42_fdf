@@ -1,10 +1,11 @@
 [submodule "libs/libft"]
 	path = libs/libft
 	url = git@github.com:papawou/42_libft.git
+	branch = norm
 [submodule "libs/libftmlx"]
 	path = libs/libftmlx
 	url = git@github.com:papawou/42_libftmlx.git
-	branch = 42_with_mlx_inside
+	branch = shader_settings
 [submodule "libs/mlx"]
 	path = libs/mlx
 	url = https://github.com/42Paris/minilibx-linux.git
