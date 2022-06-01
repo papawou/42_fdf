@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: kmendes <kmendes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:32 by kmendes           #+#    #+#             */
-/*   Updated: 2022/05/31 17:08:46 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:35:00 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	render(t_scene *sc)
 void	setup_cam(t_scene *sc)
 {
 	t_transform	tranf;
-	t_mat4			proj;
-	float				scale;
+	t_mat4		proj;
+	float		scale;
 
 	tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}),
 		(t_fvec3){0, 0, 200}};

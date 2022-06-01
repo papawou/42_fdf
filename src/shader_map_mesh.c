@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shader_map_mesh.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: kmendes <kmendes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:40 by kmendes           #+#    #+#             */
-/*   Updated: 2022/05/31 14:18:58 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:35:33 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 int	get_color_texture(float u, float v, t_mlx mlx)
 {
 	static t_img	*text = NULL;
-	int						x;
-	int						y;
-	int						c;
+	int				x;
+	int				y;
+	int				c;
 
 	if (text == NULL)
 		text = ftmlx_new_xpm_img(mlx, "./bin/img/jlale.xpm");
@@ -33,7 +33,7 @@ int	get_color_texture(float u, float v, t_mlx mlx)
 typedef struct s_frag_attr
 {
 	t_fvec2	uv;
-	float		y_world;
+	float	y_world;
 }	t_frag_attr;
 
 static void	attr_mult(void *attr_ptr, float w)
@@ -61,9 +61,9 @@ static void	frag_inter(void *t_ptr[3], void *attr_ptr, t_fvec3 w)
 static t_color	frag_shader(t_frag *f, void *params)
 {
 	t_frag_attr	*attr;
-	t_scene			*sc;
-	int					c;
-	t_color			test;
+	t_scene		*sc;
+	int			c;
+	t_color		test;
 
 	sc = params;
 	attr = f->attr;
@@ -76,7 +76,7 @@ static t_color	frag_shader(t_frag *f, void *params)
 static void	vertex_shader(t_frag *f, void *params)
 {
 	t_frag_attr	*attr;
-	t_scene			*sc;
+	t_scene		*sc;
 
 	sc = params;
 	attr = f->attr;
@@ -88,7 +88,7 @@ static void	vertex_shader(t_frag *f, void *params)
 void	shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc)
 {
 	static t_shader	shader;
-	static int			init = 1;
+	static int		init = 1;
 
 	if (init)
 	{

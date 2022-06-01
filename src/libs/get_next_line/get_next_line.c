@@ -29,8 +29,8 @@ static void	fill_buff(char *buf, char *cursor)
 
 static char	*gen_out(char *buf, t_page *entry_page, size_t out_size)
 {
-	char		*cursor_page;
-	char		*out;
+	char	*cursor_page;
+	char	*out;
 	size_t	i;
 
 	if (out_size < 1)
@@ -59,9 +59,9 @@ static char	*gen_out(char *buf, t_page *entry_page, size_t out_size)
 char	*get_next_line(int fd)
 {
 	static char	buf[BUFFER_SIZE + 1] = "";
-	t_page			*entry_page;
-	char				*buf_cursor;
-	size_t			size_test;
+	t_page		*entry_page;
+	char		*buf_cursor;
+	size_t		size_test;
 
 	if (fd < 0)
 		return (NULL);

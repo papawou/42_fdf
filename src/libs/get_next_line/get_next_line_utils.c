@@ -51,7 +51,7 @@ size_t	read_book(t_page **page, const int fd)
 {
 	size_t	out_size;
 	t_page	*tmp_page;
-	char		*n_pos;
+	char	*n_pos;
 	ssize_t	readed_bytes;
 
 	out_size = 0;

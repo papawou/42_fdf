@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: kmendes <kmendes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:29 by kmendes           #+#    #+#             */
-/*   Updated: 2022/05/31 13:49:08 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:34:41 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	draw_map_wire(t_scene *sc)
 void	draw_map_triangle(t_scene *sc)
 {
 	t_fvec3	t[3];
-	int			**map;
-	int			x;
-	int			z;
+	int		**map;
+	int		x;
+	int		z;
 
 	x = 0;
 	z = 0;
