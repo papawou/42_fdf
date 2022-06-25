@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
-/*   Updated: 2022/05/31 13:58:08 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/06/25 02:55:54 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	parse_map(char *map_path, t_scene *sc)
 		line = get_next_line(fd_map);
 	}
 	close(fd_map);
-	sc->tr_map.q = (t_quat)QUAT_ID;
+	sc->tr_map.q = quat_id();
 	sc->tr_map.v = (t_fvec3){0, 0, 0};
 	return (0);
 }
