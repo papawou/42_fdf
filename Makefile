@@ -10,7 +10,7 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c draw.c controls.c shader_map_wire.c shader_map_mesh.c parser.c \
+SRC := main.c draw.c controls.c shader_map_mesh.c parser.c \
 libs/get_next_line/get_next_line_utils.c	libs/get_next_line/get_next_line.c
 
 OBJDIR := ./obj
