@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shader_map_mesh.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmendes <kmendes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:40 by kmendes           #+#    #+#             */
-/*   Updated: 2022/06/01 13:35:33 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/07/10 19:58:12 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,5 @@ void	shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc)
 		shader.params = sc;
 		init = 0;
 	}
-	shader_tri((t_fvec3 *[3]){&a, &b, &c}, &shader);
+	ftmlx_shader_tri((t_fvec3 *[3]){&a, &b, &c}, &shader);
 }
