@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:40 by kmendes           #+#    #+#             */
-/*   Updated: 2022/07/10 19:58:12 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/07/20 03:42:19 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,9 @@ void	shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc)
 
 	if (init)
 	{
-		shader.attr_mult = attr_mult;
-		shader.frag_inter = frag_inter;
+		ftmlx_shader_new(&shader);
+		shader.persp_mult = attr_mult;
+		shader.attr_inter = frag_inter;
 		shader.vertex_shader = vertex_shader;
 		shader.frag_shader = frag_shader;
 		shader.attr_size = sizeof(t_frag_attr);

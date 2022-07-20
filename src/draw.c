@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmendes <kmendes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:29 by kmendes           #+#    #+#             */
-/*   Updated: 2022/06/01 13:34:41 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/07/18 17:19:26 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
 void	draw_map_wire(t_scene *sc)
 {
 	int	**map;
@@ -37,6 +38,7 @@ void	draw_map_wire(t_scene *sc)
 		++z;
 	}
 }
+*/
 
 void	draw_map_triangle(t_scene *sc)
 {
