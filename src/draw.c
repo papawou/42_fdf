@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:29 by kmendes           #+#    #+#             */
-/*   Updated: 2022/07/20 04:21:32 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/07/20 04:23:01 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw_map_triangle(t_scene *sc)
 			t[2] = (t_fvec3){x + 1, map[z][x + 1], z};
 			shader_map(t[0], t[1], t[2], sc);
 			t[0] = (t_fvec3){x + 1, map[z + 1][x + 1], z + 1};
-			shader_map(t[0], t[2], t[1], sc);
+			shader_map(t[2], t[1], t[0], sc);
 			++x;
 		}
 		++z;
