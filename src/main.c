@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmendes <kmendes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:32 by kmendes           #+#    #+#             */
-/*   Updated: 2022/06/01 13:35:00 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/07/20 04:18:28 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
+
+#include <X11/keysym.h>
 #include "fdf.h"
 
+/*
 #define XK_Left 123
 #define XK_Right 124
 #define XK_Down 125
 #define XK_Up 126
 #define XK_Escape 100
+*/
 
 void	draw_debug(t_scene *sc)
 {
