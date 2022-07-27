@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 04:31:24 by kmendes           #+#    #+#             */
+/*   Updated: 2022/05/31 04:31:24 by kmendes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <sys/types.h>
 #include <stdlib.h>
 #include "libs/get_next_line.h"
 
-static void fill_buff(char *buf, char *cursor)
+static void	fill_buff(char *buf, char *cursor)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
-	while(cursor && cursor[i])
+	while (cursor && cursor[i])
 	{
 		buf[i] = cursor[i];
 		++i;
@@ -15,10 +27,10 @@ static void fill_buff(char *buf, char *cursor)
 	buf[i] = 0;
 }
 
-static char *gen_out(char *buf, t_page *entry_page, size_t out_size)
+static char	*gen_out(char *buf, t_page *entry_page, size_t out_size)
 {
-	char		*cursor_page;
-	char		*out;
+	char	*cursor_page;
+	char	*out;
 	size_t	i;
 
 	if (out_size < 1)
@@ -47,8 +59,9 @@ static char *gen_out(char *buf, t_page *entry_page, size_t out_size)
 char	*get_next_line(int fd)
 {
 	static char	buf[BUFFER_SIZE + 1] = "";
-	t_page			*entry_page;
-	char				*buf_cursor;
+	t_page		*entry_page;
+	char		*buf_cursor;
+	size_t		size_test;
 
 	if (fd < 0)
 		return (NULL);
@@ -56,11 +69,11 @@ char	*get_next_line(int fd)
 	buf_cursor = ft_strchr(buf, '\n');
 	if (*buf_cursor != '\n')
 	{
-		size_t size_test = read_book(&entry_page, fd);
-		return gen_out(buf, entry_page, (buf_cursor - buf) + size_test);
+		size_test = read_book(&entry_page, fd);
+		return (gen_out(buf, entry_page, (buf_cursor - buf) + size_test));
 	}
-	else if(*buf_cursor)
-		return gen_out(buf, entry_page, buf_cursor - buf + 1);
+	else if (*buf_cursor)
+		return (gen_out(buf, entry_page, buf_cursor - buf + 1));
 	else
 		return (NULL);
 }

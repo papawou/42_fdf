@@ -10,19 +10,21 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c draw.c controls.c shader_map_wire.c shader_map_mesh.c parser.c \
+SRC := main.c draw.c controls.c shader_map_mesh.c parser.c \
 libs/get_next_line/get_next_line_utils.c	libs/get_next_line/get_next_line.c
 
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 
-LIBS := ./libs/libftmlx/libftmlx.a ./libs/libft/libft.a ./libs/mlx/libmlx.a
+LIBS := ./libs/libftmlx/libftmlx.a ./libs/libft/libft.a ./libs/mlx/libmlx.a -lXext -lX11 -lm
 LIBSINC := -I./libs/libftmlx/inc -I./libs/libft/inc -I./libs/mlx -I/usr/lib
 
 all : $(NAME)
 
+#-framework OpenGL -framework AppKit
 $(NAME)	:	$(OBJ) $(LIBS)
-	$(CC) $(CFLAGS) -framework OpenGL -framework AppKit -o $@ $(OBJ) $(INC) $(LIBSINC) $(LIBS)
+	$(CC) $(CFLAGS) -o $@ $(OBJ) $(INC) $(LIBSINC) $(LIBS)
+
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -o $@ -c $< $(INC) $(LIBSINC)

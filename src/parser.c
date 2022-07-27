@@ -1,19 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
+/*   Updated: 2022/06/25 02:55:54 by kmendes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fcntl.h>
 #include <unistd.h>
 #include "fdf.h"
 
-void free_map(int **map, int nb_lines)
+void	free_map(int **map, int nb_lines)
 {
 	while (nb_lines--)
 		free(map[nb_lines]);
 	free(map);
 }
 
-void parse_line(char *s, int dst[])
+void	parse_line(char *s, int dst[])
 {
-	int i = 0;
-	int j = 0;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
 	while (s[j] && s[j] != '\n')
 	{
 		dst[i] = ft_atoi(s + j);
@@ -25,10 +39,11 @@ void parse_line(char *s, int dst[])
 	}
 }
 
-int count_words(char *line)
+int	count_words(char *line)
 {
-	int count = 0;
+	int	count;
 
+	count = 0;
 	while (*line)
 	{
 		if (!ft_isspace(*line))
@@ -40,26 +55,28 @@ int count_words(char *line)
 		while (ft_isspace(*line))
 			++line;
 	}
-	return count;
+	return (count);
 }
 
-int count_lines(int fd_map, char *line)
+int	count_lines(int fd_map, char *line)
 {
-	int count = 0;
+	int	count;
+
+	count = 0;
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd_map);
 		++count;
 	}
-	return count;
+	return (count);
 }
 
-int parse_map(char *map_path, t_scene *sc)
+int	parse_map(char *map_path, t_scene *sc)
 {
-	char *line;
-	int fd_map;
-	int i;
+	char	*line;
+	int		fd_map;
+	int		i;
 
 	fd_map = open(map_path, O_RDONLY);
 	line = get_next_line(fd_map);
@@ -79,7 +96,7 @@ int parse_map(char *map_path, t_scene *sc)
 		line = get_next_line(fd_map);
 	}
 	close(fd_map);
-	sc->tr_map.q = (t_quat)QUAT_ID;
+	sc->tr_map.q = quat_id();
 	sc->tr_map.v = (t_fvec3){0, 0, 0};
-	return 0;
+	return (0);
 }

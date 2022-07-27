@@ -7,7 +7,7 @@
                 "${workspaceFolder}/libs/libft/inc"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/clang-7",
+            "compilerPath": "/usr/bin/clang",
             "cStandard": "c11",
             "cppStandard": "c++14",
             "intelliSenseMode": "linux-clang-x64"

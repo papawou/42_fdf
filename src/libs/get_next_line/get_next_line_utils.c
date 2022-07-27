@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 04:31:22 by kmendes           #+#    #+#             */
+/*   Updated: 2022/05/31 04:31:22 by kmendes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -9,20 +21,19 @@ char	*ft_strchr(const char *src, const char c)
 	while (*src)
 	{
 		if (*src == c)
-			return (char *) src;
+			return ((char *)src);
 		++src;
 	}
-	return (char *) src;
+	return ((char *)src);
 }
 
-size_t gen_page(t_page **page, const int fd)
+size_t	gen_page(t_page **page, const int fd)
 {
-	ssize_t readed_bytes;
+	ssize_t	readed_bytes;
 
-//init
 	*page = malloc(sizeof(t_page));
 	if (*page == NULL)
-		return 0;
+		return (0);
 	(*page)->buf[BUFFER_SIZE] = 0;
 	(*page)->next = NULL;
 	readed_bytes = read(fd, (*page)->buf, BUFFER_SIZE);
@@ -39,10 +50,10 @@ size_t gen_page(t_page **page, const int fd)
 size_t	read_book(t_page **page, const int fd)
 {
 	size_t	out_size;
-	t_page 	*tmp_page;
-	char		*n_pos;
+	t_page	*tmp_page;
+	char	*n_pos;
 	ssize_t	readed_bytes;
-	
+
 	out_size = 0;
 	readed_bytes = gen_page(page, fd);
 	if (readed_bytes < 1)
@@ -53,7 +64,7 @@ size_t	read_book(t_page **page, const int fd)
 	{
 		n_pos = ft_strchr(tmp_page->buf, '\n');
 		if (*n_pos == '\n')
-			return out_size - ((tmp_page->buf + readed_bytes) - n_pos) + 1;
+			return (out_size - ((tmp_page->buf + readed_bytes) - n_pos) + 1);
 		readed_bytes = gen_page(&tmp_page->next, fd);
 		if (readed_bytes < 1)
 			return (out_size);
@@ -62,7 +73,7 @@ size_t	read_book(t_page **page, const int fd)
 	}
 }
 
-char *cpyn_book(char *out, size_t out_size, t_page **page)
+char	*cpyn_book(char *out, size_t out_size, t_page **page)
 {
 	t_page	*tmp_page;
 	size_t	i;
@@ -80,5 +91,5 @@ char *cpyn_book(char *out, size_t out_size, t_page **page)
 		*out = (*page)->buf[i++];
 		++out;
 	}
-	return (*page)->buf + i;
+	return ((*page)->buf + i);
 }
