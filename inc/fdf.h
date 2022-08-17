@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/07/21 18:47:27 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/17 05:52:35 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,42 @@ typedef struct s_scene
 	t_ftcam		cam;
 	t_ftmlx3d	ft3d;
 	t_img		*canvas;
+
 	int			**map;
+	t_color	**map_color;
 	t_transform	tr_map;
 	t_fvec2		map_size;
 	float		**depth_buffer;
 }	t_scene;
 
+typedef struct s_p_clean_parser
+{
+	int fd_map;
+	int **map;
+	t_color	**map_color;
+	int i;
+} t_p_clean_parser;
+
+
 void	draw_map_wire(t_scene *sc);
-void	setup_cam(t_scene *sc);
 void	draw_map_triangle(t_scene *sc);
+
 int		shader_map_wire(t_fvec4 a, t_fvec4 b, t_scene *sc);
 void	shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc);
-int		parse_map(char *map_path, t_scene *sc);
-void	free_map(int **map, int nb_lines);
-char	*get_next_line(int fd);
+
+void	setup_cam(t_scene *sc);
 int		controls_camera_listener(int keycode, t_scene *sc);
+
+//parser.c
+char	*get_next_line(int fd);
+int		parse_map(char *map_path, t_scene *sc);
+
+//parser_2.c
+void	parse_line(char *s, int dst[], t_color map_color[]);
+
+//cleaner.c
+void	exit_clean_parser(int code_exit, t_p_clean_parser params);
+t_p_clean_parser clean_parser_id(void);
+void	free_map(int **map, t_color **map_color, int nb_lines);
 
 #endif

@@ -6,14 +6,38 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/17 05:47:53 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/06/25 02:55:54 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-
 #include "fdf.h"
+
+void	free_map(int **map, int nb_lines)
+{
+	while (nb_lines--)
+		free(map[nb_lines]);
+	free(map);
+}
+
+void	parse_line(char *s, int dst[])
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[j] && s[j] != '\n')
+	{
+		dst[i] = ft_atoi(s + j);
+		while (s[j] && !ft_isspace(s[j]))
+			++j;
+		while (ft_isspace(s[j]))
+			++j;
+		++i;
+	}
+}
 
 int	count_words(char *line)
 {
@@ -48,71 +72,25 @@ int	count_lines(int fd_map, char *line)
 	return (count);
 }
 
-void	parse_map_first_pass(char *map_path, t_scene *sc)
-{
-	char	*line;
-	int		fd_map;
-
-	fd_map = open(map_path, O_RDONLY);
-	if (fd_map < 0)
-		exit(EXIT_FAILURE);
-	exit_clean_parser(0, (t_p_clean_parser) {fd_map, NULL, NULL, 0});
-	line = get_next_line(fd_map);
-	sc->map_size.x = count_words(line);
-	if (sc->map_size.x == 0)
-	{
-		free(line);
-		exit_clean_parser(1, clean_parser_id());
-	}
-	sc->map_size.y = count_lines(fd_map, line);
-	close(fd_map); //!!!
-	
-	sc->map = (int **)malloc(sizeof(int *) * sc->map_size.y);
-	if (sc->map == NULL)
-		exit(EXIT_FAILURE);
-	sc->map_color = (t_color **)malloc(sizeof(t_color *) * sc->map_size.y);
-	if (sc->map_color == NULL)
-	{
-		free(sc->map);
-		exit(EXIT_FAILURE);
-	}
-}
-
 int	parse_map(char *map_path, t_scene *sc)
 {
 	char	*line;
 	int		fd_map;
 	int		i;
 
-	parse_map_first_pass(map_path, sc);
 	fd_map = open(map_path, O_RDONLY);
-	if (fd_map < 0)
-	{
-		free(sc->map);
-		free(sc->map_color);
-		exit(EXIT_FAILURE);
-	}
-	exit_clean_parser(0, (t_p_clean_parser){fd_map, sc->map, sc->map_color, 0});
-	line = get_next_line(fd_map); //map //map_color //fd_map
-	
+	line = get_next_line(fd_map);
+	sc->map_size.x = count_words(line);
+	sc->map_size.y = count_lines(fd_map, line);
+	sc->map = (int **)malloc(sizeof(int *) * sc->map_size.y);
+	close(fd_map);
+	fd_map = open(map_path, O_RDONLY);
+	line = get_next_line(fd_map);
 	i = 0;
 	while (line)
 	{
 		sc->map[i] = (int *)malloc(sc->map_size.x * sizeof(int));
-		if (sc->map[i] == NULL)
-		{
-			free(line);
-			exit_clean_parser(2, (t_p_clean_parser){-1, NULL, NULL, i});
-		}
-		sc->map_color[i] = (t_color *)malloc(sc->map_size.x * sizeof(t_color));
-		if (sc->map_color[i] == NULL)
-		{
-			free(line);
-			free(sc->map[i]);
-			exit_clean_parser(2, (t_p_clean_parser) {-1, NULL, NULL, i});
-		}
-		exit_clean_parser(0, (t_p_clean_parser) {-1, NULL, NULL, i + 1});
-		parse_line(line, sc->map[i], sc->map_color[i]);
+		parse_line(line, sc->map[i]);
 		free(line);
 		++i;
 		line = get_next_line(fd_map);

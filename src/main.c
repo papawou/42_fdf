@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:32 by kmendes           #+#    #+#             */
-/*   Updated: 2022/07/22 18:17:24 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/17 04:43:53 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdio.h>
 
 #include "fdf.h"
-
 
 void	draw_debug(t_scene *sc)
 {
@@ -33,7 +32,7 @@ int	close_me(t_scene *sc)
 {
 	free(sc->depth_buffer[0]);
 	free(sc->depth_buffer);
-	free_map(sc->map, sc->map_size.y);
+	free_map(sc->map, sc->map_color, sc->map_size.y);
 	ftmlx_free_img(sc->ft.mlx, sc->canvas);
 	exit(0);
 	return (0);
@@ -84,7 +83,10 @@ int	main(int argc, char *argv[])
 
 	(void)argc;
 	(void)argv;
+
 	if (argc < 1)
+		return (0);
+	if (parse_map(argv[1], &sc))
 		return (0);
 	if (ftmlx_init(1280, 720, &sc.ft))
 		return (0);
@@ -93,8 +95,6 @@ int	main(int argc, char *argv[])
 			sizeof(float));
 	sc.canvas = ftmlx_new_img(sc.ft.mlx, sc.ft.wh.x, sc.ft.wh.y);
 	sc.ft3d = (t_ftmlx3d){&sc.cam.vp, &sc.ft.wh, sc.canvas};
-	if (parse_map(argv[1], &sc))
-		return (0);
 	render(&sc);
 	mlx_hook(sc.ft.win, 17, 0, close_me, &sc);
 	mlx_key_hook(sc.ft.win, hook_key, &sc);
