@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/17 05:47:53 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/17 08:41:07 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	parse_map_first_pass(char *map_path, t_scene *sc)
 	fd_map = open(map_path, O_RDONLY);
 	if (fd_map < 0)
 		exit(EXIT_FAILURE);
-	exit_clean_parser(0, (t_p_clean_parser) {fd_map, NULL, NULL, 0});
+	exit_clean_parser(0, (t_p_clean_parser){fd_map, NULL, NULL, 0});
 	line = get_next_line(fd_map);
 	sc->map_size.x = count_words(line);
 	if (sc->map_size.x == 0)
@@ -66,7 +66,6 @@ void	parse_map_first_pass(char *map_path, t_scene *sc)
 	}
 	sc->map_size.y = count_lines(fd_map, line);
 	close(fd_map); //!!!
-	
 	sc->map = (int **)malloc(sizeof(int *) * sc->map_size.y);
 	if (sc->map == NULL)
 		exit(EXIT_FAILURE);
@@ -78,23 +77,10 @@ void	parse_map_first_pass(char *map_path, t_scene *sc)
 	}
 }
 
-int	parse_map(char *map_path, t_scene *sc)
+void	parse_map_inline(char *line, int fd_map, t_scene *sc)
 {
-	char	*line;
-	int		fd_map;
-	int		i;
+	int	i;
 
-	parse_map_first_pass(map_path, sc);
-	fd_map = open(map_path, O_RDONLY);
-	if (fd_map < 0)
-	{
-		free(sc->map);
-		free(sc->map_color);
-		exit(EXIT_FAILURE);
-	}
-	exit_clean_parser(0, (t_p_clean_parser){fd_map, sc->map, sc->map_color, 0});
-	line = get_next_line(fd_map); //map //map_color //fd_map
-	
 	i = 0;
 	while (line)
 	{
@@ -109,16 +95,32 @@ int	parse_map(char *map_path, t_scene *sc)
 		{
 			free(line);
 			free(sc->map[i]);
-			exit_clean_parser(2, (t_p_clean_parser) {-1, NULL, NULL, i});
+			exit_clean_parser(2, (t_p_clean_parser){-1, NULL, NULL, i});
 		}
-		exit_clean_parser(0, (t_p_clean_parser) {-1, NULL, NULL, i + 1});
+		exit_clean_parser(0, (t_p_clean_parser){-1, NULL, NULL, i + 1});
 		parse_line(line, sc->map[i], sc->map_color[i]);
 		free(line);
 		++i;
 		line = get_next_line(fd_map);
 	}
+}
+
+int	parse_map(char *map_path, t_scene *sc)
+{
+	char	*line;
+	int		fd_map;
+
+	parse_map_first_pass(map_path, sc);
+	fd_map = open(map_path, O_RDONLY);
+	if (fd_map < 0)
+	{
+		free(sc->map);
+		free(sc->map_color);
+		exit(EXIT_FAILURE);
+	}
+	exit_clean_parser(0, (t_p_clean_parser){fd_map, sc->map, sc->map_color, 0});
+	line = get_next_line(fd_map);
+	parse_map_inline(line, fd_map, sc);
 	close(fd_map);
-	sc->tr_map.q = quat_id();
-	sc->tr_map.v = (t_fvec3){0, 0, 0};
 	return (0);
 }

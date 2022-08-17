@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:32 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/17 04:43:53 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/17 08:40:30 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,11 @@
 
 #include "fdf.h"
 
-void	draw_debug(t_scene *sc)
-{
-	t_fvec3	t[3];
-
-	t[0] = (t_fvec3){-5, -5, 85};
-	t[1] = (t_fvec3){5, -5, 85};
-	t[2] = (t_fvec3){0, 0, 0};
-	shader_map(t[0], t[1], t[2], sc);
-	return ;
-}
-
-int	close_me(t_scene *sc)
-{
-	free(sc->depth_buffer[0]);
-	free(sc->depth_buffer);
-	free_map(sc->map, sc->map_color, sc->map_size.y);
-	ftmlx_free_img(sc->ft.mlx, sc->canvas);
-	exit(0);
-	return (0);
-}
-
 int	hook_key(int keycode, t_scene *sc)
 {
 	controls_camera_listener(keycode, sc);
 	if (keycode == XK_Escape)
-		return (close_me(sc));
+		close_me();
 	return (0);
 }
 
@@ -52,11 +31,6 @@ int	render(t_scene *sc)
 	ft_bzero(sc->depth_buffer[0], sizeof(float) * sc->ft.wh.y * sc->ft.wh.x);
 	draw_map_triangle(sc);
 	mlx_put_image_to_window(sc->ft.mlx, sc->ft.win, sc->canvas->img, 0, 0);
-	
-	char output[255];
-	sprintf(output, "%f / %f / %f __ %f / %f / %f - %f", sc->cam.tranf.v.x, sc->cam.tranf.v.y, sc->cam.tranf.v.z,
-	sc->cam.tranf.q.x, sc->cam.tranf.q.y, sc->cam.tranf.q.z, sc->cam.tranf.q.w);
-	mlx_string_put(sc->ft.mlx, sc->ft.win, 50, 50, ftmlx_get_color_int((t_color){255, 0, 0, 0}), output);
 	return (0);
 }
 
@@ -67,14 +41,23 @@ void	setup_cam(t_scene *sc)
 
 	tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}),
 		(t_fvec3){0, 0, 0}};
-	
-	/*
-	float		scale = 0.25;
-	proj = ftmlx_create_orth_proj(sc->ft.wh.x * scale, sc->ft.wh.y * scale,
-			1000, 10);
-	*/
-	proj = ftmlx_create_x_persp_proj(60, sc->ft.wh.x/sc->ft.wh.y, 1000, 1);
+	proj = ftmlx_create_x_persp_proj(60, sc->ft.wh.x / sc->ft.wh.y, 1000, 1);
 	ftmlx_init_cam(tranf, proj, (t_fvec3){0, 0, 0}, &sc->cam);
+}
+
+void	main_2(t_scene	*sc)
+{
+	if (ftmlx_init(1280, 720, &sc->ft))
+		clean_exit(1, NULL);
+	sc->depth_buffer = (float **)ft_malloc_cont_2d(sc->ft.wh.y, sc->ft.wh.x,
+			sizeof(float));
+	if (sc->depth_buffer == NULL)
+		clean_exit(1, NULL);
+	sc->canvas = ftmlx_new_img(sc->ft.mlx, sc->ft.wh.x, sc->ft.wh.y);
+	if (sc->canvas == NULL)
+		clean_exit(1, NULL);
+	setup_cam(sc);
+	sc->ft3d = (t_ftmlx3d){&sc->cam.vp, &sc->ft.wh, sc->canvas};
 }
 
 int	main(int argc, char *argv[])
@@ -83,18 +66,12 @@ int	main(int argc, char *argv[])
 
 	(void)argc;
 	(void)argv;
-
+	init_sc(&sc);
 	if (argc < 1)
-		return (0);
+		return (1);
 	if (parse_map(argv[1], &sc))
-		return (0);
-	if (ftmlx_init(1280, 720, &sc.ft))
-		return (0);
-	setup_cam(&sc);
-	sc.depth_buffer = (float **)ft_malloc_cont_2d(sc.ft.wh.y, sc.ft.wh.x,
-			sizeof(float));
-	sc.canvas = ftmlx_new_img(sc.ft.mlx, sc.ft.wh.x, sc.ft.wh.y);
-	sc.ft3d = (t_ftmlx3d){&sc.cam.vp, &sc.ft.wh, sc.canvas};
+		return (1);
+	main_2(&sc);
 	render(&sc);
 	mlx_hook(sc.ft.win, 17, 0, close_me, &sc);
 	mlx_key_hook(sc.ft.win, hook_key, &sc);

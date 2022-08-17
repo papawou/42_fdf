@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:40 by kmendes           #+#    #+#             */
-/*   Updated: 2022/07/20 03:42:19 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/17 08:25:44 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc)
 		shader.canvas = sc->canvas;
 		shader.depth_buffer = sc->depth_buffer;
 		shader.params = sc;
+		shader.at_exit = (t_atexit)clean_exit;
 		init = 0;
 	}
 	ftmlx_shader_tri((t_fvec3 *[3]){&a, &b, &c}, &shader);

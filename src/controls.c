@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:18 by kmendes           #+#    #+#             */
-/*   Updated: 2022/07/23 18:57:26 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/17 08:12:55 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ int	controls_camera_listener(int keycode, t_scene *sc)
 	if (keycode == XK_Down)
 		fps_rotate_camera(axisg_to_quat((t_axisg){1, 0, 0, -1}), &sc->cam);
 	if (keycode == XK_a)
-		fps_move_camera((t_fvec3){-1, 0, 0} , &sc->cam);
+		fps_move_camera((t_fvec3){-1, 0, 0}, &sc->cam);
 	if (keycode == XK_d)
-		fps_move_camera((t_fvec3){1, 0, 0} , &sc->cam);
+		fps_move_camera((t_fvec3){1, 0, 0}, &sc->cam);
 	if (keycode == XK_w)
 		fps_move_camera((t_fvec3){0, 0, -1}, &sc->cam);
 	if (keycode == XK_s)
-		fps_move_camera((t_fvec3){0 ,0, 1}, &sc->cam);
+		fps_move_camera((t_fvec3){0, 0, 1}, &sc->cam);
 	if (keycode == XK_space)
 		world_move_camera((t_fvec3){0, 1, 0}, &sc->cam);
 	if (keycode == XK_z)
