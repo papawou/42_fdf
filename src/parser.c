@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/17 08:41:07 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/19 15:52:07 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,11 @@ void	parse_map_inline(char *line, int fd_map, t_scene *sc)
 			exit_clean_parser(2, (t_p_clean_parser){-1, NULL, NULL, i});
 		}
 		exit_clean_parser(0, (t_p_clean_parser){-1, NULL, NULL, i + 1});
-		parse_line(line, sc->map[i], sc->map_color[i]);
+		if (parse_line(line, sc->map[i], sc->map_color[i])) //not tested;
+		{
+			free(line);
+			exit_clean_parser(2, (t_p_clean_parser){-1, NULL, NULL, i});
+		}
 		free(line);
 		++i;
 		line = get_next_line(fd_map);
