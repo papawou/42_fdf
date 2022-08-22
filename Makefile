@@ -10,9 +10,9 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c draw.c controls.c shader_map_mesh.c parser.c parser_2.c cleaner.c scene.c\
-libs/get_next_line/get_next_line_utils.c	libs/get_next_line/get_next_line.c
-
+SRC := main.c draw.c controls.c shader_map_mesh.c  scene.c\
+parser/get_next_line/get_next_line_utils.c	parser/get_next_line/get_next_line.c\
+parser/parser.c parser/parser_line.c parser/parser_cleaner.c
 OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 

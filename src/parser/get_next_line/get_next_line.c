@@ -37,7 +37,7 @@ static char	*gen_out(char *buf, t_page *entry_page, size_t out_size)
 		return (NULL);
 	out = malloc(out_size + 1);
 	if (out == NULL)
-		return (NULL);
+		exit_clean_gnl(E_CODE_CLEAN | E_CODE_RESET, NULL);
 	out[out_size] = 0;
 	i = 0;
 	while (buf[i] && i < out_size)
@@ -66,6 +66,7 @@ char	*get_next_line(int fd)
 	if (fd < 0)
 		return (NULL);
 	entry_page = NULL;
+	exit_clean_gnl(E_CODE_INIT, &entry_page);
 	buf_cursor = ft_strchr(buf, '\n');
 	if (*buf_cursor != '\n')
 	{

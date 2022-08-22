@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:32 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/17 08:40:30 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/22 03:36:30 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 #include <stdio.h>
 
 #include "fdf.h"
+
+int	close_me(void)
+{
+	exit_clean(1, "LALAL");
+	return (0);
+}
 
 int	hook_key(int keycode, t_scene *sc)
 {
@@ -48,14 +54,14 @@ void	setup_cam(t_scene *sc)
 void	main_2(t_scene	*sc)
 {
 	if (ftmlx_init(1280, 720, &sc->ft))
-		clean_exit(1, NULL);
+		exit_clean(1, "LALAL");
 	sc->depth_buffer = (float **)ft_malloc_cont_2d(sc->ft.wh.y, sc->ft.wh.x,
 			sizeof(float));
 	if (sc->depth_buffer == NULL)
-		clean_exit(1, NULL);
+		exit_clean(1, "LALAL");
 	sc->canvas = ftmlx_new_img(sc->ft.mlx, sc->ft.wh.x, sc->ft.wh.y);
 	if (sc->canvas == NULL)
-		clean_exit(1, NULL);
+		exit_clean(1, "LALAL");
 	setup_cam(sc);
 	sc->ft3d = (t_ftmlx3d){&sc->cam.vp, &sc->ft.wh, sc->canvas};
 }

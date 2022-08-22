@@ -1,5 +1,6 @@
 {
 	"files.associations": {
+		"*.h": "c",
 		"math.h": "c",
 		"fdf.h": "c",
 		"rot.h": "c",
@@ -37,6 +38,7 @@
 		"ftmlx_vec.h": "c",
 		"ftmlx_math.h": "c",
 		"ftmlx_quat.h": "c",
-		"ftmlx_mat.h": "c"
+		"ftmlx_mat.h": "c",
+		"cstdlib": "c"
 	}
 }

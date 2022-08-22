@@ -15,8 +15,10 @@
 
 # include <sys/types.h>
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 255
 # endif
+
+#include "parser.h"
 
 typedef struct s_page
 {
@@ -28,5 +30,6 @@ char	*get_next_line(int fd);
 char	*ft_strchr(const char *src, const char c);
 size_t	read_book(t_page **page, const int fd);
 char	*cpyn_book(char *out, size_t out_size, t_page **page);
+void exit_clean_gnl(int code, t_page **entry);
 
 #endif

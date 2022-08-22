@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 04:22:47 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/19 15:47:49 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/20 21:21:20 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	parsecolor(char *s, t_color *dst)
 	return (j);
 }
 
-void	parse_line(char *s, int dst[], t_color map_color[])
+int	parse_line(char *s, int dst[], t_color map_color[])
 {
 	int	i;
 	int	j;
@@ -85,12 +85,13 @@ void	parse_line(char *s, int dst[], t_color map_color[])
 			++j;
 		tmp = parsecolor(s + j, map_color + j);
 		if (tmp == -1)
-			exit(EXIT_FAILURE);
+			return (1);
 		j += tmp;
 		if (s[j] && !ft_isspace(s[j]))
-			exit(EXIT_FAILURE);
+			return (1);
 		while (ft_isspace(s[j]))
 			++j;
 		++i;
 	}
+	return (0);
 }
