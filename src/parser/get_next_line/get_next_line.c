@@ -67,7 +67,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	entry_page = NULL;
 	exit_clean_gnl(E_CODE_INIT, &entry_page);
-	buf_cursor = ft_strchr(buf, '\n');
+	buf_cursor = gnl_ft_strchr(buf, '\n');
 	if (*buf_cursor != '\n')
 	{
 		size_test = read_book(&entry_page, fd);

@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/22 03:33:52 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/23 23:22:06 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ typedef struct s_scene
 	float		**depth_buffer;
 }	t_scene;
 
+//draw.c
 void	draw_map_wire(t_scene *sc);
 void	draw_map_triangle(t_scene *sc);
+void	draw_debug(t_scene *sc);
 
-int		shader_map_wire(t_fvec4 a, t_fvec4 b, t_scene *sc);
 void	shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc);
 
 void	setup_cam(t_scene *sc);

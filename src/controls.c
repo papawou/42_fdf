@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:18 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/17 08:12:55 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/23 06:28:37 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ int	controls_camera_listener(int keycode, t_scene *sc)
 		world_move_camera((t_fvec3){0, 1, 0}, &sc->cam);
 	if (keycode == XK_z)
 		world_move_camera((t_fvec3){0, -1, 0}, &sc->cam);
+	if (keycode == XK_q)
+	{
+		//world_rotate_camera((t_fvec3){35.264, 45, 0}, &sc->cam);
+	}
 	ftmlx_update_cam(&sc->cam);
 	return (0);
 }

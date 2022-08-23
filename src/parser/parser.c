@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/22 03:34:23 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/23 06:12:04 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,15 @@ int parse_map(char *map_path, t_scene *sc)
 		return (1);
 	
 	parse_read_file(map_path, &entry_page);
+	if (!entry_page) //file is empty ?
+		exit_clean_parser();
 	if (count_map(entry_page, sc))
 		exit_clean_parser();
 
-	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.x, sc->map_size.y, sizeof(int));
+	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
 	if (sc->map == NULL)
 		exit_clean_parser();
-	sc->map_color = (t_color **)ft_malloc_cont_2d(sc->map_size.x, sc->map_size.y, sizeof(int));
+	sc->map_color = (t_color **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
 	if (sc->map_color == NULL)
 	{
 		ft_free_malloc_cont_2d((void **)sc->map);

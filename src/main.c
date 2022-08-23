@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:32 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/22 03:36:30 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/24 00:57:31 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ int	render(t_scene *sc)
 {
 	fill_img(sc->canvas, (t_color){127, 127, 127, 0});
 	ft_bzero(sc->depth_buffer[0], sizeof(float) * sc->ft.wh.y * sc->ft.wh.x);
-	draw_map_triangle(sc);
+
+
+	//draw_debug(sc);
+	draw_map_wire(sc);
+	//draw_map_triangle(sc);
 	mlx_put_image_to_window(sc->ft.mlx, sc->ft.win, sc->canvas->img, 0, 0);
+
 	return (0);
 }
 
@@ -45,13 +50,14 @@ void	setup_cam(t_scene *sc)
 	t_transform	tranf;
 	t_mat4		proj;
 
-	tranf = (t_transform){euler_to_quat((t_euler){0, 0, 0}),
+	tranf = (t_transform){euler_to_quat((t_euler){-35.264, 45, 0}),
 		(t_fvec3){0, 0, 0}};
-	proj = ftmlx_create_x_persp_proj(60, sc->ft.wh.x / sc->ft.wh.y, 1000, 1);
+	//proj = ftmlx_create_x_persp_proj(60, sc->ft.wh.x / sc->ft.wh.y, 1000, 1);
+	proj = ftmlx_create_orth_proj(50, 50, 500, 1);
 	ftmlx_init_cam(tranf, proj, (t_fvec3){0, 0, 0}, &sc->cam);
 }
 
-void	main_2(t_scene	*sc)
+void	setup_scene(t_scene *sc)
 {
 	if (ftmlx_init(1280, 720, &sc->ft))
 		exit_clean(1, "LALAL");
@@ -72,12 +78,12 @@ int	main(int argc, char *argv[])
 
 	(void)argc;
 	(void)argv;
-	init_sc(&sc);
 	if (argc < 1)
 		return (1);
+	init_sc(&sc);
 	if (parse_map(argv[1], &sc))
 		return (1);
-	main_2(&sc);
+	setup_scene(&sc);
 	render(&sc);
 	mlx_hook(sc.ft.win, 17, 0, close_me, &sc);
 	mlx_key_hook(sc.ft.win, hook_key, &sc);

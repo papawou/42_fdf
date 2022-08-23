@@ -16,7 +16,7 @@
 
 #include "libs/get_next_line.h"
 
-char	*ft_strchr(const char *src, const char c)
+char	*gnl_ft_strchr(const char *src, const char c)
 {
 	while (*src)
 	{
@@ -65,7 +65,7 @@ size_t	read_book(t_page **page, const int fd)
 	tmp_page = *page;
 	while (1)
 	{
-		n_pos = ft_strchr(tmp_page->buf, '\n');
+		n_pos = gnl_ft_strchr(tmp_page->buf, '\n');
 		if (*n_pos == '\n')
 			return (out_size - ((tmp_page->buf + readed_bytes) - n_pos) + 1);
 		readed_bytes = gen_page(&tmp_page->next, fd);
