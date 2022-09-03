@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/23 23:22:06 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/01 17:05:59 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ typedef struct s_scene
 
 	int			**map;
 	t_color	**map_color;
-	t_transform	tr_map;
 	t_fvec2		map_size;
+	t_mat4		map_mat;
+	
 	float		**depth_buffer;
 }	t_scene;
 
@@ -47,6 +48,7 @@ int		controls_camera_listener(int keycode, t_scene *sc);
 void exit_clean(int code, char *str);
 void	init_sc(t_scene *sc);
 void	clean_scene(int code, t_scene *sc);
+void	setup_scene(t_scene *sc);
 
 //cleaner.c
 void	clean_exit(int code_exit, t_scene *sc);
@@ -58,7 +60,17 @@ void clean_book(int code, t_list **entry);
 
 //parser.c
 char	*get_next_line(int fd);
-int		parse_map(char *map_path, t_scene *sc);
+void		parse_map(char *map_path, t_scene *sc);
 int		parse_line(char *s, int dst[], t_color map_color[]);
+
+//map.c
+void calc_map_box(t_scene *sc, t_fvec2 *box, t_fvec2 *offset);
+t_mat4 get_map_mat(float scale, t_fvec2 offset, t_fvec2 box);
+
+//cam.c
+void	setup_cam(t_scene *sc);
+
+//controls.c
+void	fps_move_camera(t_fvec3 v, t_ftcam *cam);
 
 #endif

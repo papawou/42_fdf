@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 04:22:47 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/23 05:54:23 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/25 15:27:11 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	parse_line(char *s, int dst[], t_color map_color[])
 	while (s[j] && s[j] != '\n')
 	{
 		dst[i] = ft_atoi(s + j);
-		map_color[i] = (t_color){0, 0, 0, 0};
+		map_color[i] = (t_color){255, 255, 255, 0};
 		if (s[j] == '+' || s[j] == '-')
 			++j;
 		while (s[j] && ft_isdigit(s[j]))

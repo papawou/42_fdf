@@ -39,5 +39,5 @@ void exit_clean_parser()
 	clean_fd_map(E_CODE_CLEAN, -1);
 	clean_book(E_CODE_CLEAN, NULL);
 
-	exit_clean(1, "LALAL");
+	exit_clean(1, "exit_clean_parser");
 }

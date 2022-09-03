@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/23 06:12:04 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/08/29 17:10:08 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,12 @@ static void	parse_read_file(char *map_path, t_list **entry_page)
 	return ;
 }
 
-int parse_map(char *map_path, t_scene *sc)
+void	parse_map(char *map_path, t_scene *sc)
 {
 	t_list	*entry_page;
 	
 	entry_page = NULL;
 	clean_book(E_CODE_INIT, &entry_page);
-	if (map_path == NULL)
-		return (1);
-	
 	parse_read_file(map_path, &entry_page);
 	if (!entry_page) //file is empty ?
 		exit_clean_parser();
@@ -127,5 +124,4 @@ int parse_map(char *map_path, t_scene *sc)
 	}
 	parse_book(sc->map, sc->map_color, entry_page);
 	clean_book(E_CODE_CLEAN | E_CODE_RESET, NULL);
-	return (0);
 }

@@ -1,4 +1,4 @@
-NAME := fdf.out
+NAME := fdf
 
 CC := gcc
 CFLAGS :=	-Wall -Wextra -Werror
@@ -10,7 +10,7 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c draw.c controls.c shader_map_mesh.c  scene.c\
+SRC := main.c draw.c controls.c shader_map_mesh.c cam.c scene.c map.c\
 parser/get_next_line/get_next_line_utils.c	parser/get_next_line/get_next_line.c\
 parser/parser.c parser/parser_line.c parser/parser_cleaner.c
 OBJDIR := ./obj
