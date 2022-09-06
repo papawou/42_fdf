@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:32 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/03 15:24:28 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:29:01 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	render(t_scene *sc)
 	
 	ftmlx_update_cam(&sc->cam);
 	draw_debug(sc);
-	//draw_map_wire(sc);
-	//draw_map_triangle(sc);
 	mlx_put_image_to_window(sc->ft.mlx, sc->ft.win, sc->canvas->img, 0, 0);
 
 	return (0);

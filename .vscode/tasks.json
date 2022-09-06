@@ -18,7 +18,29 @@
         "isDefault": true
       },
       "detail": "make re with DEBUG=1"
+    },
+		{
+      "type": "shell",
+      "label": "valgrind_debug",
+      "command": "valgrind",
+      "args": [
+				"--vgdb=yes", "--vgdb-error=0", "--leak-check=full", "--show-leak-kinds=all", "--track-origins=yes",
+				""
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "detail": "valgrind vgdb"
     }
   ],
   "version": "2.0.0"
 }
+
+//valgrind --vgdb=yes --vgdb-error=0 --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./fdf ./bin/test_maps/t1.fdf

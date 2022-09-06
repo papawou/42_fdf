@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/05 21:15:15 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:29:32 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	parse_map(char *map_path, t_scene *sc)
 	entry_page = NULL;
 	clean_book(E_CODE_INIT, &entry_page);
 	parse_read_file(map_path, &entry_page);
-	if (!entry_page) //file is empty ?
+	if (!entry_page)
 		exit_clean_parser();
 	if (count_map(entry_page, sc))
 		exit_clean_parser();

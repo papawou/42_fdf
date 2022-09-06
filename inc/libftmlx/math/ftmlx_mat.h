@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cam.c                                              :+:      :+:    :+:   */
+/*   ftmlx_mat.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 15:38:13 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/06 14:29:22 by kmendes          ###   ########.fr       */
+/*   Created: 2022/05/31 03:11:28 by kmendes           #+#    #+#             */
+/*   Updated: 2022/06/25 02:50:41 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-#include <libftmlx/ftmlx_math.h>
+#ifndef FTMLX_MAT_H
+# define FTMLX_MAT_H
 
-void	setup_cam(t_scene *sc)
+# include "libftmlx/math/ftmlx_vec.h"
+
+typedef struct s_mat4
 {
-	t_transform	tranf;
-	t_mat4		proj;
-	
-	tranf = (t_transform){euler_to_quat((t_euler){-35.264, 45, 0}),
-		(t_fvec3){0, 0, 0}};
-	proj = mat_id();
-	ftmlx_init_cam(tranf, proj, &sc->cam);
-}
+	float	m[4][4];
+}	t_mat4;
+
+t_fvec4	mat_mult_vec(t_mat4 m, t_fvec4 v);
+t_mat4	mat_mult(t_mat4 a, t_mat4 b);
+t_mat4	mat_id(void);
+#endif

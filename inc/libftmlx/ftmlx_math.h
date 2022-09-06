@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cam.c                                              :+:      :+:    :+:   */
+/*   ftmlx_math.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 15:38:13 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/06 14:29:22 by kmendes          ###   ########.fr       */
+/*   Created: 2022/05/31 03:15:24 by kmendes           #+#    #+#             */
+/*   Updated: 2022/09/06 19:37:06 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-#include <libftmlx/ftmlx_math.h>
+#ifndef FTMLX_MATH_H
+# define FTMLX_MATH_H
 
-void	setup_cam(t_scene *sc)
-{
-	t_transform	tranf;
-	t_mat4		proj;
-	
-	tranf = (t_transform){euler_to_quat((t_euler){-35.264, 45, 0}),
-		(t_fvec3){0, 0, 0}};
-	proj = mat_id();
-	ftmlx_init_cam(tranf, proj, &sc->cam);
-}
+# include "libftmlx/math/ftmlx_mat.h"
+# include "libftmlx/math/ftmlx_vec.h"
+# include "libftmlx/math/ftmlx_rot.h"
+# include "libftmlx/math/ftmlx_quat.h"
+# include "libftmlx/math/ftmlx_trans.h"
+# include "libftmlx/math/ftmlx_utils.h"
+
+#endif

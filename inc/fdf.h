@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/01 17:05:59 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/06 19:51:50 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_scene
 {
 	t_ftmlx		ft;
 	t_ftcam		cam;
-	t_ftmlx3d	ft3d;
 	t_img		*canvas;
 
 	int			**map;

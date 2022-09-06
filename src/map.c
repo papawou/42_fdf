@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:33:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/01 17:03:51 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/06 14:29:08 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_mat4 get_map_mat(float scale, t_fvec2 offset, t_fvec2 box)
 {
 	t_mat4 dst;
 
-	(void) box; //use to fix offset
+	(void) box;
 	(void) offset;
 	dst = mat_id();
 	scale = scale;
