@@ -7,7 +7,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/fdf",
 			"args": [
-				"test.fdf"
+				"./test.fdf"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
@@ -19,6 +19,11 @@
 					"description": "Enable pretty-printing for gdb",
 					"text": "-enable-pretty-printing",
 					"ignoreFailures": true
+				},
+				{
+					"description": "Attach to valgrind",
+					"text": "target remote | /usr/bin/vgdb",
+					"ignoreFailures": false  
 				}
 			],
 			"preLaunchTask": "make_debug",

@@ -1,0 +1,693 @@
+==752== Memcheck, a memory error detector
+==752== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==752== Using Valgrind-3.16.1-36d6727e1d-20200622X and LibVEX; rerun with -h for copyright info
+==752== Command: ./fdf ./bin/test_maps/t2.fdf
+==752== Parent PID: 100
+==752== 
+--752-- 
+--752-- Valgrind options:
+--752--    --leak-check=full
+--752--    --show-leak-kinds=all
+--752--    --track-origins=yes
+--752--    --verbose
+--752--    --log-file=valgrind-out.txt
+--752-- Contents of /proc/version:
+--752--   Linux version 5.10.60.1-microsoft-standard-WSL2 (oe-user@oe-host) (x86_64-msft-linux-gcc (GCC) 9.3.0, GNU ld (GNU Binutils) 2.34.0.20200220) #1 SMP Wed Aug 25 23:20:18 UTC 2021
+--752-- 
+--752-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
+--752-- Page sizes: currently 4096, max supported 4096
+--752-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
+--752-- Reading syms from /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf
+--752-- Reading syms from /lib/x86_64-linux-gnu/ld-2.31.so
+--752--   Considering /usr/lib/debug/.build-id/32/438eb3b034da54caf58c7a65446639f7cfe274.debug ..
+--752--   .. build-id is valid
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
+--752--   Considering /usr/lib/debug/.build-id/54/299c4aec0e5e5f3d7b8135341351d0e1dbfc64.debug ..
+--752--   .. build-id is valid
+--752--    object doesn't have a dynamic symbol table
+--752-- Scheduler: using generic scheduler lock implementation.
+--752-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
+==752== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-752-by-mendes-on-???
+==752== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-752-by-mendes-on-???
+==752== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-752-by-mendes-on-???
+==752== 
+==752== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==752== don't want to do, unless you know exactly what you're doing,
+==752== or are doing some strange experiment):
+==752==   /usr/bin/vgdb --pid=752 ...command...
+==752== 
+==752== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==752==   /path/to/gdb ./fdf
+==752== and then give GDB the following command
+==752==   target remote | /usr/bin/vgdb --pid=752
+==752== --pid is optional if only one valgrind process is running
+==752== 
+--752-- REDIR: 0x401f970 (ld-linux-x86-64.so.2:strlen) redirected to 0x580ca5f2 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--752-- REDIR: 0x401f750 (ld-linux-x86-64.so.2:index) redirected to 0x580ca60c (vgPlain_amd64_linux_REDIR_FOR_index)
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
+--752--   Considering /usr/lib/debug/.build-id/f2/7641e081d3c37b410d7f31da4e2bf21040f356.debug ..
+--752--   .. build-id is valid
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
+--752--   Considering /usr/lib/debug/.build-id/25/7cdcdf80e04f91ca9e3b185ee3b52995e89946.debug ..
+--752--   .. build-id is valid
+==752== WARNING: new redirection conflicts with existing -- ignoring it
+--752--     old: 0x0401f970 (strlen              ) R-> (0000.0) 0x580ca5f2 vgPlain_amd64_linux_REDIR_FOR_strlen
+--752--     new: 0x0401f970 (strlen              ) R-> (2007.0) 0x0483bda0 strlen
+--752-- REDIR: 0x401c190 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483cc90 (strcmp)
+--752-- REDIR: 0x401feb0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4840740 (mempcpy)
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+--752--   Considering /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0 ..
+--752--   .. CRC mismatch (computed fee28fcb wanted ccf52917)
+--752--    object doesn't have a symbol table
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+--752--    object doesn't have a symbol table
+--752-- Reading syms from /lib/x86_64-linux-gnu/libm-2.31.so
+--752--   Considering /usr/lib/debug/.build-id/e9/d2c06479b13dd3cfa78d714d11dccf6fcbee51.debug ..
+--752--   .. build-id is valid
+--752-- Reading syms from /lib/x86_64-linux-gnu/libc-2.31.so
+--752--   Considering /usr/lib/debug/.build-id/2e/5abcee94f3bcbed7bba094f341070a2585a2ba.debug ..
+--752--   .. build-id is valid
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+--752--    object doesn't have a symbol table
+--752-- Reading syms from /lib/x86_64-linux-gnu/libdl-2.31.so
+--752--   Considering /usr/lib/debug/.build-id/11/8b90161526d181807818c459baee841993795b.debug ..
+--752--   .. build-id is valid
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+--752--    object doesn't have a symbol table
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+--752--    object doesn't have a symbol table
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/libbsd.so.0.11.3
+--752--    object doesn't have a symbol table
+--752-- Reading syms from /usr/lib/x86_64-linux-gnu/libmd.so.0.0.4
+--752--    object doesn't have a symbol table
+--752-- REDIR: 0x4b7aea0 (libc.so.6:memmove) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7a250 (libc.so.6:strncpy) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7b1c0 (libc.so.6:strcasecmp) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b79b70 (libc.so.6:strcat) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7a2b0 (libc.so.6:rindex) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7c550 (libc.so.6:rawmemchr) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b94710 (libc.so.6:wmemchr) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b942b0 (libc.so.6:wcscmp) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7b000 (libc.so.6:mempcpy) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7ae30 (libc.so.6:bcmp) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7a1f0 (libc.so.6:strncmp) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b79c20 (libc.so.6:strcmp) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7af60 (libc.so.6:memset) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b94270 (libc.so.6:wcschr) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7a150 (libc.so.6:strnlen) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b79cf0 (libc.so.6:strcspn) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7b210 (libc.so.6:strncasecmp) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b79c90 (libc.so.6:strcpy) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7b360 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b95910 (libc.so.6:wcsnlen) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b942f0 (libc.so.6:wcscpy) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7a2f0 (libc.so.6:strpbrk) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b79bd0 (libc.so.6:index) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7a110 (libc.so.6:strlen) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b808b0 (libc.so.6:memrchr) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7b260 (libc.so.6:strcasecmp_l) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7adf0 (libc.so.6:memchr) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b94390 (libc.so.6:wcslen) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7a590 (libc.so.6:strspn) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7b160 (libc.so.6:stpncpy) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7b100 (libc.so.6:stpcpy) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7c590 (libc.so.6:strchrnul) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4b7b2b0 (libc.so.6:strncasecmp_l) redirected to 0x482e1b0 (_vgnU_ifunc_wrapper)
+--752-- REDIR: 0x4c4b990 (libc.so.6:__strrchr_avx2) redirected to 0x483b7b0 (rindex)
+--752-- REDIR: 0x4b760f0 (libc.so.6:malloc) redirected to 0x4838710 (malloc)
+--752-- REDIR: 0x4b76720 (libc.so.6:free) redirected to 0x4839940 (free)
+==752== Invalid write of size 4
+==752==    at 0x11164B: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f57b80 is 0 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111257: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== Invalid write of size 1
+==752==    at 0x111661: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b60 is 0 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== Invalid write of size 1
+==752==    at 0x111664: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b61 is 1 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== Invalid write of size 1
+==752==    at 0x111668: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b62 is 2 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== Invalid write of size 1
+==752==    at 0x11166C: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b63 is 3 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== Invalid write of size 1
+==752==    at 0x111434: charto2hex (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1114D8: parsecolor (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1116FF: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b60 is 0 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+--752-- REDIR: 0x4c4bb60 (libc.so.6:__strlen_avx2) redirected to 0x483bc80 (strlen)
+--752-- REDIR: 0x4c474d0 (libc.so.6:__strncmp_avx2) redirected to 0x483c370 (strncmp)
+--752-- REDIR: 0x4b76e50 (libc.so.6:calloc) redirected to 0x483aab0 (calloc)
+--752-- REDIR: 0x4c4eb50 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x483f760 (memmove)
+--752-- REDIR: 0x4c4b7a0 (libc.so.6:__strchrnul_avx2) redirected to 0x48402b0 (strchrnul)
+--752-- REDIR: 0x4b76980 (libc.so.6:realloc) redirected to 0x483ad00 (realloc)
+--752-- REDIR: 0x4c4d420 (libc.so.6:__strncpy_avx2) redirected to 0x483bf70 (strncpy)
+--752-- REDIR: 0x4c4efe0 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x483f650 (memset)
+--752-- REDIR: 0x4c4d090 (libc.so.6:__strcpy_avx2) redirected to 0x483bdd0 (strcpy)
+==752== 
+==752== HEAP SUMMARY:
+==752==     in use at exit: 55,892 bytes in 68 blocks
+==752==   total heap usage: 705 allocs, 637 frees, 3,797,294 bytes allocated
+==752== 
+==752== Searching for pointers to 68 not-freed blocks
+==752== Checked 210,784 bytes
+==752== 
+==752== 10 bytes in 1 blocks are still reachable in loss record 1 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x4B79E4A: strdup (strdup.c:42)
+==752==    by 0x48928EA: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48FE9D3: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4899558: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 15 bytes in 1 blocks are still reachable in loss record 2 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x4898EF6: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 16 bytes in 1 blocks are still reachable in loss record 3 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x4CC164D: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBFB33: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBD9F1: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CC2025: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x48A8241: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4898A24: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 17 bytes in 1 blocks are still reachable in loss record 4 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x4B79E4A: strdup (strdup.c:42)
+==752==    by 0x4898A01: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 24 bytes in 1 blocks are still reachable in loss record 5 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x48A85E5: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A94A1: _XReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F906A: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F914C: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 29 bytes in 1 blocks are still reachable in loss record 6 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x4893799: _XUpdateAtomCache (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4893B69: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x11756E: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 32 bytes in 1 blocks are still reachable in loss record 7 of 40
+==752==    at 0x48386AF: malloc (vg_replace_malloc.c:306)
+==752==    by 0x483ADE7: realloc (vg_replace_malloc.c:834)
+==752==    by 0x4CC129E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CC1323: xcb_get_extension_data (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBE1DE: xcb_prefetch_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBE254: xcb_get_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x48993DB: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 32 bytes in 1 blocks are still reachable in loss record 8 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x4CC0812: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBDF8E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBFD7E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBFE90: xcb_wait_for_reply (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CC1382: xcb_get_extension_data (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBE1DE: xcb_prefetch_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CBE254: xcb_get_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x48993DB: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752== 
+==752== 32 bytes in 1 blocks are still reachable in loss record 9 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x485E0FB: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==752==    by 0x48595FE: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==752==    by 0x11731F: mlx_int_deal_shm (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x11757D: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 33 bytes in 1 blocks are still reachable in loss record 10 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x4893799: _XUpdateAtomCache (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4893B69: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x117557: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 40 bytes in 1 blocks are still reachable in loss record 11 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x48AA3BD: _XPollfdCacheInit (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4898D29: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 48 bytes in 1 blocks are still reachable in loss record 12 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x48A81C9: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4898A24: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 48 bytes in 1 blocks are still reachable in loss record 13 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x48A81DF: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4898A24: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 48 bytes in 1 blocks are still reachable in loss record 14 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48F911C: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 72 bytes in 1 blocks are still reachable in loss record 15 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x4898DDC: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 72 bytes in 1 blocks are still reachable in loss record 16 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48F9100: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 104 bytes in 3 blocks are still reachable in loss record 17 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48F8825: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F907E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F914C: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 112 bytes in 1 blocks are still reachable in loss record 18 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48A80CE: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4898A24: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 112 bytes in 1 blocks are still reachable in loss record 19 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48990B8: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 128 bytes in 1 blocks are still reachable in loss record 20 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x4898FE6: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 128 bytes in 1 blocks are still reachable in loss record 21 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48928DA: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48FE9D3: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4899558: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 128 bytes in 1 blocks are still reachable in loss record 22 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48929FE: XAddExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x485E2FA: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==752==    by 0x48595FE: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==752==    by 0x11731F: mlx_int_deal_shm (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x11757D: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 136 bytes in 1 blocks are still reachable in loss record 23 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x1174AB: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 152 bytes in 1 blocks are still reachable in loss record 24 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48FEBCE: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4899558: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 160 bytes in 1 blocks are still reachable in loss record 25 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x488707B: XCreateGC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4899454: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 168 bytes in 1 blocks are still reachable in loss record 26 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x4898F6A: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 208 bytes in 1 blocks are still reachable in loss record 27 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x48ABB4E: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A83E6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A9140: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A75B5: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x11794E: mlx_int_wait_first_expose (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117716: mlx_new_window (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C56: ftmlx_init (ftmlx.c:21)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 256 bytes in 1 blocks are still reachable in loss record 28 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x49071FD: XkbAllocClientMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F8EB4: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F907E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F914C: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 416 bytes in 2 blocks are still reachable in loss record 29 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x48ABB4E: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A83E6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A8FF9: _XEventsQueued (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x488A5C9: XFlush (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x117D37: mlx_int_new_image (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x11190D: ftmlx_new_img (img.c:25)
+==752==    by 0x1105AF: setup_scene (scene.c:94)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 512 bytes in 1 blocks are still reachable in loss record 30 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x489370A: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4893A8A: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x117557: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 800 bytes in 1 blocks are still reachable in loss record 31 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x49072C1: XkbAllocClientMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F8CCF: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F907E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F914C: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 976 bytes in 1 blocks are still reachable in loss record 32 of 40
+==752==    at 0x483AD7B: realloc (vg_replace_malloc.c:834)
+==752==    by 0x4CBDB61: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CC2025: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x48A8241: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4898A24: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 1,020 bytes in 19 blocks are still reachable in loss record 33 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48F860D: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F907E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F914C: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 1,664 bytes in 8 blocks are still reachable in loss record 34 of 40
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x48ABB4E: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A83E6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A9189: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48A75B5: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x11794E: mlx_int_wait_first_expose (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117716: mlx_new_window (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C56: ftmlx_init (ftmlx.c:21)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 1,792 bytes in 1 blocks are still reachable in loss record 35 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x4899140: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 2,048 bytes in 1 blocks are still reachable in loss record 36 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48F8844: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F907E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F914C: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 2,048 bytes in 1 blocks are still reachable in loss record 37 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48F8F43: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F907E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F914C: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5222: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x48F5777: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x118F13: mlx_int_param_KeyRelease (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x117845: mlx_loop (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E6DF: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 4,704 bytes in 1 blocks are still reachable in loss record 38 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x48989ED: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 16,384 bytes in 1 blocks are still reachable in loss record 39 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x4898D79: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 21,168 bytes in 1 blocks are still reachable in loss record 40 of 40
+==752==    at 0x483AB65: calloc (vg_replace_malloc.c:760)
+==752==    by 0x4CBD980: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x4CC2025: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==752==    by 0x48A8241: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x4898A24: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==752==    by 0x1174C3: mlx_init (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111C20: ftmlx_init (ftmlx.c:18)
+==752==    by 0x11057B: setup_scene (scene.c:92)
+==752==    by 0x10E66C: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== LEAK SUMMARY:
+==752==    definitely lost: 0 bytes in 0 blocks
+==752==    indirectly lost: 0 bytes in 0 blocks
+==752==      possibly lost: 0 bytes in 0 blocks
+==752==    still reachable: 55,892 bytes in 68 blocks
+==752==         suppressed: 0 bytes in 0 blocks
+==752== 
+==752== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 1 from 1)
+==752== 
+==752== 1 errors in context 1 of 6:
+==752== Invalid write of size 1
+==752==    at 0x111434: charto2hex (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1114D8: parsecolor (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1116FF: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b60 is 0 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 
+==752== 1 errors in context 2 of 6:
+==752== Invalid write of size 1
+==752==    at 0x11166C: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b63 is 3 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 
+==752== 1 errors in context 3 of 6:
+==752== Invalid write of size 1
+==752==    at 0x111668: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b62 is 2 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 
+==752== 1 errors in context 4 of 6:
+==752== Invalid write of size 1
+==752==    at 0x111664: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b61 is 1 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 
+==752== 1 errors in context 5 of 6:
+==752== Invalid write of size 1
+==752==    at 0x111661: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f61b60 is 0 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x1112A9: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+==752== 
+==752== 1 errors in context 6 of 6:
+==752== Invalid write of size 4
+==752==    at 0x11164B: parse_line (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x110F5C: parse_book (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111301: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==  Address 0x4f57b80 is 0 bytes after a block of size 40,000 alloc'd
+==752==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==752==    by 0x116C32: ft_malloc_cont_2d (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x111257: parse_map (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752==    by 0x10E65D: main (in /mnt/d/papawa_src/documents/_main/dev/42/42_fdf/fdf)
+==752== 
+--752-- 
+--752-- used_suppression:      1 X on SUSE11 writev uninit padding /usr/lib/x86_64-linux-gnu/valgrind/default.supp:377
+==752== 
+==752== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 1 from 1)

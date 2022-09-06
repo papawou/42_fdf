@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 08:10:46 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/03 03:23:08 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/03 23:18:12 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,9 @@ void setup_scene(t_scene *sc)
 
 	if (ftmlx_init(screen_size.x, screen_size.y, &sc->ft))
 		exit_clean(1, "ftmlx failed");
-	sc->depth_buffer = (float **)ft_malloc_cont_2d(sc->ft.wh.y, sc->ft.wh.x,
-																								 sizeof(float));
-	if (sc->depth_buffer == NULL)
-		exit_clean(1, "depth_buffer failed");
 	sc->canvas = ftmlx_new_img(sc->ft.mlx, sc->ft.wh.x, sc->ft.wh.y);
 	if (sc->canvas == NULL)
 		exit_clean(1, "canvas failed");
+
 	sc->ft3d = (t_ftmlx3d){&sc->cam.vp, &sc->ft.wh, sc->canvas};
 }
