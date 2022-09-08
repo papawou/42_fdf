@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 08:10:46 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/08 18:48:44 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/08 20:02:34 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	clean_scene(int code, t_scene *sc)
 			if (p_sc->ft.win)
 				mlx_destroy_window(p_sc->ft.mlx, p_sc->ft.win);
 			p_sc->ft.win = NULL;
+			mlx_destroy_display(p_sc->ft.mlx);
 		}
 	}
 }
