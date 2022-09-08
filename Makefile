@@ -10,9 +10,9 @@ endif
 INC := -I./inc
 
 SRCDIR := ./src
-SRC := main.c draw.c controls.c shader_map_mesh.c cam.c scene.c map.c\
+SRC := main.c draw.c controls.c cam.c scene.c map.c\
 parser/get_next_line/get_next_line_utils.c	parser/get_next_line/get_next_line.c\
-parser/parser.c parser/parser_line.c parser/parser_cleaner.c
+parser/parser.c parser/parser_line.c parser/parser_cleaner.c parser/parser_atoi.c
 
 SRC_FTMLX_FILES := img.c img_2.c ftmlx.c \
 math/mat.c	math/quat.c math/quat_2.c	math/rot.c	math/trans.c math/trans_2.c	math/vec.c math/vec_2.c \
@@ -29,7 +29,7 @@ OBJDIR := ./obj
 OBJ := ${addprefix $(OBJDIR)/, ${SRC:.c=.o}}
 
 LIBS := ./libs/libft/libft.a ./libs/mlx/libmlx.a -lXext -lX11 -lm
-LIBSINC := -I./libs/libftmlx/inc -I./libs/libft/inc -I./libs/mlx -I/usr/lib
+LIBSINC := -I./libs/libft/inc -I./libs/mlx -I/usr/lib
 
 all : $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/06 19:51:50 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/08 19:30:16 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,45 +26,40 @@ typedef struct s_scene
 	t_img		*canvas;
 
 	int			**map;
-	t_color	**map_color;
+	t_color		**map_color;
 	t_fvec2		map_size;
 	t_mat4		map_mat;
-	
-	float		**depth_buffer;
 }	t_scene;
 
 //draw.c
-void	draw_map_wire(t_scene *sc);
-void	draw_map_triangle(t_scene *sc);
-void	draw_debug(t_scene *sc);
-
-void	shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc);
+void	draw(t_scene *sc);
 
 void	setup_cam(t_scene *sc);
 int		controls_camera_listener(int keycode, t_scene *sc);
 
 //scene.c
-void exit_clean(int code, char *str);
+void	exit_clean(int code, char *str);
 void	init_sc(t_scene *sc);
 void	clean_scene(int code, t_scene *sc);
 void	setup_scene(t_scene *sc);
 
 //cleaner.c
 void	clean_exit(int code_exit, t_scene *sc);
-int	close_me(void);
+int		close_me(t_scene *sc);
 
 //parser_cleaner.c
-void clean_fd_map(enum e_code_clean code, int fd_map);
-void clean_book(int code, t_list **entry);
+void	clean_fd_map(enum e_code_clean code, int fd_map);
+void	clean_book(int code, t_list **entry);
 
 //parser.c
 char	*get_next_line(int fd);
-void		parse_map(char *map_path, t_scene *sc);
+void	parse_map(char *map_path, t_scene *sc);
 int		parse_line(char *s, int dst[], t_color map_color[]);
+int		ft_atoi_safe(char *str, int *dst);
 
 //map.c
-void calc_map_box(t_scene *sc, t_fvec2 *box, t_fvec2 *offset);
-t_mat4 get_map_mat(float scale, t_fvec2 offset, t_fvec2 box);
+void	calc_map_box(t_scene *sc, t_fvec2 *box, t_fvec2 *offset);
+t_mat4	get_map_mat(float scale, t_fvec2 offset, t_fvec2 box);
 
 //cam.c
 void	setup_cam(t_scene *sc);

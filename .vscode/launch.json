@@ -7,7 +7,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/fdf",
 			"args": [
-				"./test.fdf"
+				"./42.fdf"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
@@ -23,10 +23,10 @@
 				{
 					"description": "Attach to valgrind",
 					"text": "target remote | /usr/bin/vgdb",
-					"ignoreFailures": false  
+					"ignoreFailures": true  
 				}
 			],
-			"preLaunchTask": "make_debug",
+			"preLaunchTask": "make_debug"
 		}
 	]
 }

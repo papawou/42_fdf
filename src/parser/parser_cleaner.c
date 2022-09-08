@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_cleaner.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/06 20:55:58 by kmendes           #+#    #+#             */
+/*   Updated: 2022/09/07 15:18:23 by kmendes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -6,22 +18,23 @@
 
 #include "fdf.h"
 
-void clean_fd_map(enum e_code_clean code, int fd_map)
+void	clean_fd_map(enum e_code_clean code, int fd_map)
 {
-	static int p_fd_map = -1;
+	static int	p_fd_map = -1;
 
 	if (code & E_CODE_INIT)
 		p_fd_map = fd_map;
 	if (code & E_CODE_CLEAN && p_fd_map >= 0)
 	{
-		close(p_fd_map);
+		if (p_fd_map != -1)
+			close(p_fd_map);
 		p_fd_map = -1;
 	}
 }
 
-void clean_book(int code, t_list **entry)
+void	clean_book(int code, t_list **entry)
 {
-	static t_list **p_entry = NULL;
+	static t_list	**p_entry = NULL;
 
 	if (code & E_CODE_INIT)
 		p_entry = entry;
@@ -34,10 +47,9 @@ void clean_book(int code, t_list **entry)
 		p_entry = NULL;
 }
 
-void exit_clean_parser()
+void	exit_clean_parser(void)
 {
 	clean_fd_map(E_CODE_CLEAN, -1);
 	clean_book(E_CODE_CLEAN, NULL);
-
 	exit_clean(1, "exit_clean_parser");
 }

@@ -27,22 +27,21 @@ char	*gnl_ft_strchr(const char *src, const char c)
 	return ((char *)src);
 }
 
-
 size_t	gen_page(t_page **page, const int fd)
 {
 	ssize_t	readed_bytes;
 
 	*page = malloc(sizeof(t_page));
 	if (*page == NULL)
-		return (0); //exit_clean_parser return -1 ?
+		exit_clean_gnl(E_CODE_CLEAN | E_CODE_RESET, NULL);
 	(*page)->buf[BUFFER_SIZE] = 0;
 	(*page)->next = NULL;
 	readed_bytes = read(fd, (*page)->buf, BUFFER_SIZE);
 	if (readed_bytes < 1)
 	{
 		free(*page);
-		*page = NULL; 
-		if(readed_bytes == -1)
+		*page = NULL;
+		if (readed_bytes == -1)
 			exit_clean_gnl(E_CODE_CLEAN | E_CODE_RESET, NULL);
 	}
 	else
@@ -97,12 +96,11 @@ char	*cpyn_book(char *out, size_t out_size, t_page **page)
 	return ((*page)->buf + i);
 }
 
-
-void exit_clean_gnl(int code, t_page **entry)
+void	exit_clean_gnl(int code, t_page **entry)
 {
-	static t_page **p_entry = NULL;
-	t_page *tmp_page = NULL;
-	t_page *tmp_page_2 = NULL;
+	static t_page	**p_entry = NULL;
+	t_page			*tmp_page;
+	t_page			*tmp_page_2;
 
 	if (code & E_CODE_INIT)
 		p_entry = entry;

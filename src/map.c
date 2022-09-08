@@ -6,13 +6,13 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:33:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/06 14:29:08 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/06 20:53:14 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void calc_map_box_2(t_fvec4 minmax, t_fvec2 *box, t_fvec2 *offset)
+static void	calc_map_box_2(t_fvec4 minmax, t_fvec2 *box, t_fvec2 *offset)
 {
 	box->x = minmax.z - minmax.x;
 	box->y = minmax.w - minmax.y;
@@ -20,7 +20,7 @@ static void calc_map_box_2(t_fvec4 minmax, t_fvec2 *box, t_fvec2 *offset)
 	offset->y = minmax.w;
 }
 
-static void minmax_check(t_fvec4 tmp, t_fvec4 *minmax)
+static void	minmax_check(t_fvec4 tmp, t_fvec4 *minmax)
 {
 	if (tmp.x < minmax->x)
 		minmax->x = tmp.x;
@@ -32,11 +32,11 @@ static void minmax_check(t_fvec4 tmp, t_fvec4 *minmax)
 		minmax->w = tmp.y;
 }
 
-void calc_map_box(t_scene *sc, t_fvec2 *box, t_fvec2 *offset)
+void	calc_map_box(t_scene *sc, t_fvec2 *box, t_fvec2 *offset)
 {
-	t_vec2 pos;
-	t_fvec4 tmp;
-	t_fvec4 minmax;
+	t_vec2	pos;
+	t_fvec4	tmp;
+	t_fvec4	minmax;
 
 	minmax = (t_fvec4){0, 0, 0, 0};
 	pos.y = 0;
@@ -55,9 +55,9 @@ void calc_map_box(t_scene *sc, t_fvec2 *box, t_fvec2 *offset)
 	calc_map_box_2(minmax, box, offset);
 }
 
-t_mat4 get_map_mat(float scale, t_fvec2 offset, t_fvec2 box)
+t_mat4	get_map_mat(float scale, t_fvec2 offset, t_fvec2 box)
 {
-	t_mat4 dst;
+	t_mat4	dst;
 
 	(void) box;
 	(void) offset;

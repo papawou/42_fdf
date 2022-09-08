@@ -6,13 +6,13 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 08:10:46 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/06 20:17:41 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/08 18:48:44 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void exit_clean(int code, char *str)
+void	exit_clean(int code, char *str)
 {
 	if (code)
 		ft_putstr_fd(str, 2);
@@ -22,17 +22,14 @@ void exit_clean(int code, char *str)
 	exit(code);
 }
 
-void clean_scene(int code, t_scene *sc)
+void	clean_scene(int code, t_scene *sc)
 {
-	static t_scene *p_sc = NULL;
+	static t_scene	*p_sc = NULL;
 
 	if (code & E_CODE_INIT)
 		p_sc = sc;
-
 	if (code & E_CODE_CLEAN)
 	{
-		ft_free_malloc_cont_2d((void **)p_sc->depth_buffer);
-		p_sc->depth_buffer = NULL;
 		ft_free_malloc_cont_2d((void **)p_sc->map);
 		p_sc->map = NULL;
 		ft_free_malloc_cont_2d((void **)p_sc->map_color);
@@ -49,20 +46,20 @@ void clean_scene(int code, t_scene *sc)
 	}
 }
 
-void init_sc(t_scene *sc)
+void	init_sc(t_scene *sc)
 {
 	sc->map = NULL;
 	sc->map_color = NULL;
-	sc->depth_buffer = NULL;
 	sc->ft.mlx = NULL;
 	sc->ft.win = NULL;
 	sc->canvas = NULL;
 	clean_scene(E_CODE_INIT, sc);
 }
 
-t_vec2 get_screen_size(t_fvec2 box)
+t_vec2	get_screen_size(t_fvec2 box)
 {
-	t_vec2 dst;
+	t_vec2	dst;
+
 	dst.x = 1000;
 	dst.y = 1000;
 	if (box.x > box.y)
@@ -72,20 +69,20 @@ t_vec2 get_screen_size(t_fvec2 box)
 	return (dst);
 }
 
-void setup_scene(t_scene *sc)
+void	setup_scene(t_scene *sc)
 {
-	t_fvec2 box;
-	t_fvec2 offset;
-	t_vec2 screen_size;
+	t_fvec2	box;
+	t_fvec2	offset;
+	t_vec2	screen_size;
+	float	scale;
 
 	setup_cam(sc);
 	calc_map_box(sc, &box, &offset);
 	screen_size = get_screen_size(box);
-
-	float scaleTest = screen_size.y / box.y;
-	sc->map_mat = get_map_mat(scaleTest * 0.8, offset, box);
-	fps_move_camera((t_fvec3) {-(offset.x * (scaleTest * 0.8) + screen_size.x * 0.1),
-		(offset.y * (scaleTest * 0.8) + screen_size.y * 0.1), 0},
+	scale = screen_size.y / box.y;
+	sc->map_mat = get_map_mat(scale * 0.8, offset, box);
+	fps_move_camera((t_fvec3){-(offset.x * (scale * 0.8) + screen_size.x * 0.1),
+		(offset.y * (scale * 0.8) + screen_size.y * 0.1), 0},
 		&sc->cam);
 	ftmlx_update_cam(&sc->cam);
 	if (ftmlx_init(screen_size.x, screen_size.y, &sc->ft))

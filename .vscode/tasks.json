@@ -37,7 +37,9 @@
         "kind": "build",
         "isDefault": false
       },
-      "detail": "valgrind vgdb"
+      "detail": "valgrind vgdb",
+			"dependsOn": ["make_debug"],
+			"dependsOrder": "sequence"
     }
   ],
   "version": "2.0.0"
