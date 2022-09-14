@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 15:38:13 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/06 21:00:29 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/11 18:11:16 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void	setup_cam(t_scene *sc)
 
 	tranf = (t_transform){euler_to_quat((t_euler){-35.264, 45, 0}),
 		(t_fvec3){0, 0, 0}};
+	
+	//tranf = (t_transform){quat_id(),
+		//(t_fvec3){0, 0, 0}};
 	proj = mat_id();
 	ftmlx_init_cam(tranf, proj, &sc->cam);
 }

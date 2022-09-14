@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:29 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/08 15:58:16 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/12 04:04:32 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	draw(t_scene *sc)
 
 	x = 0;
 	z = 0;
+	//sc->map_mat = mat_id();
 	mvp_map = mat_mult(sc->cam.vp, sc->map_mat);
 	while (z < sc->map_size.y)
 	{

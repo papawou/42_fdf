@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/08 19:30:16 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/13 14:20:02 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_scene
 
 	int			**map;
 	t_color		**map_color;
-	t_fvec2		map_size;
+	t_vec2		map_size;
 	t_mat4		map_mat;
 }	t_scene;
 
@@ -58,13 +58,14 @@ int		parse_line(char *s, int dst[], t_color map_color[]);
 int		ft_atoi_safe(char *str, int *dst);
 
 //map.c
-void	calc_map_box(t_scene *sc, t_fvec2 *box, t_fvec2 *offset);
-t_mat4	get_map_mat(float scale, t_fvec2 offset, t_fvec2 box);
+void	calc_map_box(t_fvec2 *height, t_fvec2 *width, t_scene *sc);
+t_mat4 scale_map_mat(float scale, t_scene *sc);
 
 //cam.c
 void	setup_cam(t_scene *sc);
 
 //controls.c
 void	fps_move_camera(t_fvec3 v, t_ftcam *cam);
+void	world_move_camera(t_fvec3 v, t_ftcam *cam);
 
 #endif

@@ -7,7 +7,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/fdf",
 			"args": [
-				"./42.fdf"
+				"./test.fdf"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",

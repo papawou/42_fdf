@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 08:10:46 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/08 20:02:34 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/14 06:13:43 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	clean_scene(int code, t_scene *sc)
 				mlx_destroy_window(p_sc->ft.mlx, p_sc->ft.win);
 			p_sc->ft.win = NULL;
 			mlx_destroy_display(p_sc->ft.mlx);
+			free(p_sc->ft.mlx);
+			p_sc->ft.mlx = NULL;
 		}
 	}
 }
@@ -57,35 +59,69 @@ void	init_sc(t_scene *sc)
 	clean_scene(E_CODE_INIT, sc);
 }
 
-t_vec2	get_screen_size(t_fvec2 box)
+t_vec2	get_screen_size(t_fvec2 height, t_fvec2 width, t_scene *sc)
 {
 	t_vec2	dst;
+	float scale_map;
+	t_fvec2 box;
 
+	box.x = width.y - width.x;
+	box.y = height.y - height.x;
 	dst.x = 1000;
 	dst.y = 1000;
+	
 	if (box.x > box.y)
+	{
 		dst.y = dst.x * (box.y / box.x);
+		scale_map = 1000.0 / box.x;
+	}
 	else if (box.x < box.y)
+	{
 		dst.x = dst.y * (box.x / box.y);
+		scale_map = 1000.0 / box.y;
+	}
+	
+	scale_map *= 0.9;
+	sc->map_mat = scale_map_mat(scale_map, sc);
+	setup_cam(sc);
+	fps_move_camera((t_fvec3){width.x * scale_map - dst.x * 0.05,
+		height.y * scale_map + dst.y * 0.05, 0 }, &sc->cam);
+	
+	if (dst.x < 360)
+	{
+		fps_move_camera((t_fvec3){-(360 - dst.x) / 2.0, 0, 0}, &sc->cam);
+		dst.x = 360;
+	}
+	else if (dst.y < 360)
+	{
+		fps_move_camera((t_fvec3){(360 - dst.y) / 2.0, 0, 0}, &sc->cam);
+		dst.y = 360;
+	}
 	return (dst);
 }
 
 void	setup_scene(t_scene *sc)
 {
 	t_fvec2	box;
-	t_fvec2	offset;
 	t_vec2	screen_size;
-	float	scale;
+	float		scale;
+	t_fvec2	tmp_height;
+	t_fvec2 tmp_width;
+	
+	calc_map_box(&tmp_height, &tmp_width, sc);
+	
+	//box.x = tmp_width.y - tmp_width.x;
+	//box.y = tmp_height.y - tmp_height.x;
+	
+	screen_size = get_screen_size(tmp_height, tmp_width, sc);
+	
+	//scale = screen_size.x / box.x;
+	//scale *= 0.9;
+	//sc->map_mat = scale_map_mat(scale, sc);
 
-	setup_cam(sc);
-	calc_map_box(sc, &box, &offset);
-	screen_size = get_screen_size(box);
-	scale = screen_size.y / box.y;
-	sc->map_mat = get_map_mat(scale * 0.8, offset, box);
-	fps_move_camera((t_fvec3){-(offset.x * (scale * 0.8) + screen_size.x * 0.1),
-		(offset.y * (scale * 0.8) + screen_size.y * 0.1), 0},
-		&sc->cam);
-	ftmlx_update_cam(&sc->cam);
+	//setup_cam(sc);
+	//fps_move_camera((t_fvec3){tmp_width.x * scale - screen_size.x * 0.05, tmp_height.y * scale + screen_size.y * 0.05, 0 }, &sc->cam);
+	
 	if (ftmlx_init(screen_size.x, screen_size.y, &sc->ft))
 		exit_clean(1, "ftmlx failed");
 	sc->canvas = ftmlx_new_img(sc->ft.mlx, sc->ft.wh.x, sc->ft.wh.y);

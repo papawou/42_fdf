@@ -6,65 +6,60 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:33:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/06 20:53:14 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/13 21:02:33 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	calc_map_box_2(t_fvec4 minmax, t_fvec2 *box, t_fvec2 *offset)
+/*
+static void center_mat(t_scene *sc)
 {
-	box->x = minmax.z - minmax.x;
-	box->y = minmax.w - minmax.y;
-	offset->x = -minmax.x;
-	offset->y = minmax.w;
+	sc->map_mat = mat_id();
+	
+	if (sc->map_size.x > 1)
+		sc->map_mat.m[0][3] = -(sc->map_size.x - 1) / 2.0;
+	if (sc->map_size.y > 1)
+		sc->map_mat.m[2][3] = -(sc->map_size.y - 1) / 2.0;
+}
+*/
+
+t_mat4 scale_map_mat(float scale, t_scene *sc)
+{
+	t_mat4 tmp;
+
+	tmp = mat_id();
+	tmp.m[0][0] = scale;
+	tmp.m[1][1] = scale;
+	tmp.m[2][2] = scale;
+	(void) sc;
+	//tmp = mat_mult(tmp, sc->map_mat);
+	return (tmp);
 }
 
-static void	minmax_check(t_fvec4 tmp, t_fvec4 *minmax)
-{
-	if (tmp.x < minmax->x)
-		minmax->x = tmp.x;
-	if (tmp.x > minmax->z)
-		minmax->z = tmp.x;
-	if (tmp.y < minmax->y)
-		minmax->y = tmp.y;
-	if (tmp.y > minmax->w)
-		minmax->w = tmp.y;
-}
-
-void	calc_map_box(t_scene *sc, t_fvec2 *box, t_fvec2 *offset)
+void	calc_map_box(t_fvec2 *height, t_fvec2 *width, t_scene *sc)
 {
 	t_vec2	pos;
-	t_fvec4	tmp;
-	t_fvec4	minmax;
+	float	tmp;
 
-	minmax = (t_fvec4){0, 0, 0, 0};
+	width->x = -(sqrt(2.0) / 2.0) * (sc->map_size.y - 1);
+	width->y = (sqrt(2.0) / 2.0) * (sc->map_size.x - 1);
+	height->x = sc->map[0][0] * sqrt(2.0/3);
+	height->y = height->x;
 	pos.y = 0;
 	while (pos.y < sc->map_size.y)
 	{
 		pos.x = 0;
 		while (pos.x < sc->map_size.x)
 		{
-			tmp = (t_fvec4){pos.x, sc->map[pos.y][pos.x], pos.y, 1};
-			tmp = mat_mult_vec(sc->cam.vp, tmp);
-			minmax_check(tmp, &minmax);
+			tmp = (sc->map[pos.y][pos.x] * sqrt(2.0/3) - (pos.x + pos.y) * (sqrt(2.0/3)/2.0));
+			if (tmp > height->y)
+				height->y = tmp;
+			else if (tmp < height->x)
+				height->x = tmp;
 			++pos.x;
 		}
 		++pos.y;
 	}
-	calc_map_box_2(minmax, box, offset);
 }
 
-t_mat4	get_map_mat(float scale, t_fvec2 offset, t_fvec2 box)
-{
-	t_mat4	dst;
-
-	(void) box;
-	(void) offset;
-	dst = mat_id();
-	scale = scale;
-	dst.m[0][0] = scale;
-	dst.m[1][1] = scale;
-	dst.m[2][2] = scale;
-	return (dst);
-}
