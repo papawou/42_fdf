@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 06:34:36 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/14 13:56:43 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <libftmlx.h>
 # include <math.h>
 
-#include "parser.h"
+# include	"parser.h"
 
 typedef struct s_scene
 {
