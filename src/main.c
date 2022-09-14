@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:32 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/08 20:02:01 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/14 14:34:04 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char *argv[])
 	setup_scene(&sc);
 	mlx_key_hook(sc.ft.win, hook_key, &sc);
 	mlx_hook(sc.ft.win, 17, 0, close_me, &sc);
+	mlx_expose_hook(sc.ft.win, render, &sc);
 	mlx_loop_hook(sc.ft.mlx, render, &sc);
 	mlx_loop(sc.ft.mlx);
 	return (0);

@@ -20,12 +20,12 @@
       "detail": "make re with DEBUG=1"
     },
 		{
-      "type": "shell",
+      "type": "process",
       "label": "valgrind_debug",
       "command": "valgrind",
       "args": [
 				"--vgdb=yes", "--vgdb-error=0", "--leak-check=full", "--show-leak-kinds=all", "--track-origins=yes",
-				""
+				"./fdf", "./test.fdf"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -44,5 +44,5 @@
   ],
   "version": "2.0.0"
 }
-
+//valgrind --vgdb=yes --vgdb-error=0 --leak-check=full --show-leak-kinds=all --track-origins=yes ./fdf ./test.fdf
 //valgrind --vgdb=yes --vgdb-error=0 --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./fdf ./bin/test_maps/t1.fdf
