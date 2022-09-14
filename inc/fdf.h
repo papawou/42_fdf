@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/13 14:20:02 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/14 06:34:36 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_atoi_safe(char *str, int *dst);
 
 //map.c
 void	calc_map_box(t_fvec2 *height, t_fvec2 *width, t_scene *sc);
-t_mat4 scale_map_mat(float scale, t_scene *sc);
+t_mat4	scale_map_mat(float scale);
 
 //cam.c
 void	setup_cam(t_scene *sc);
