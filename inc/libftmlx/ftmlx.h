@@ -45,6 +45,7 @@ void	ftmlx_free_img(t_mlx mlx, t_img *img);
 int		*ftmlx_img_get_pxl(t_img *img, int x, int y);
 void	ftmlx_img_set_pxl_color(t_img *img, int x, int y, int color);
 void	ftmlx_img_put_img(t_img *src, t_img *dst, int dst_x, int dst_y);
+int		ftmlx_get_color_value(t_mlx mlx, int color);
 void	fill_img(t_img *img, t_color c);
 int		ftmlx_init(int width, int height, t_ftmlx *ftmlx);
 

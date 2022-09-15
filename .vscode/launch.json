@@ -7,7 +7,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/fdf",
 			"args": [
-				"./test.fdf"
+				"./bin/test_maps/t2.fdf"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",

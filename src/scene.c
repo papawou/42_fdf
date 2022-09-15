@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 08:10:46 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 06:37:42 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/15 03:23:54 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void	setup_scene(t_scene *sc)
 	sc->canvas = ftmlx_new_img(sc->ft.mlx, sc->ft.wh.x, sc->ft.wh.y);
 	if (sc->canvas == NULL)
 		exit_clean(1, "canvas failed");
+	ftmlx_get_color_value(sc->ft.mlx, 0);
 }
