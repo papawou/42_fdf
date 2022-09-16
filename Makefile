@@ -4,7 +4,7 @@ CC := gcc
 CFLAGS :=	-Wall -Wextra -Werror
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
-CFLAGS += -Wno-unused-variable -g -fdiagnostics-color=always
+CFLAGS += -g -fdiagnostics-color=always
 endif
 
 INC := -I./inc
