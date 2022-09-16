@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 08:10:46 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/15 03:23:54 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:41:38 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_vec2	get_screen_size(t_fvec2 height, t_fvec2 width, t_scene *sc)
 	scale_map *= 0.9;
 	sc->map_mat = scale_map_mat(scale_map);
 	setup_cam(sc);
-	fps_move_camera((t_fvec3){width.x * scale_map - dst.x * 0.05,
+	fps_move_camera((t_fvec3){-dst.x * 0.05,
 		height.y * scale_map + dst.y * 0.05, 0}, &sc->cam);
 	return ((t_vec2){dst.x, dst.y});
 }

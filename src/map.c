@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:33:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/16 14:13:58 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:41:57 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	calc_map_box(t_fvec2 *height, t_fvec2 *width, t_scene *sc)
 	t_vec2	pos;
 	float	tmp;
 
-	width->x = -(sqrt(2.0) / 2.0) * (sc->map_size.y - 1);
-	width->y = (sqrt(2.0) / 2.0) * (sc->map_size.x - 1);
-	height->x = sc->map[0][0] * sqrt(2.0 / 3);
+	width->x = 0;
+	width->y = (sqrt(2.0) / 2.0) * (sc->map_size.y + sc->map_size.x - 2);
+	height->x = sc->map[sc->map_size.y - 1][sc->map_size.x - 1] * sqrt(2.0 / 3);
 	height->y = height->x;
 	pos.y = 0;
 	while (pos.y < sc->map_size.y)
@@ -38,8 +38,8 @@ void	calc_map_box(t_fvec2 *height, t_fvec2 *width, t_scene *sc)
 		pos.x = 0;
 		while (pos.x < sc->map_size.x)
 		{
-			tmp = (sc->map[pos.y][pos.x] * sqrt(2.0 / 3) - (pos.x + pos.y)
-					* (sqrt(2.0 / 3) / 2.0));
+			tmp = (sc->map[pos.y][pos.x] * sqrt(2.0 / 3)
+					+ (pos.x - pos.y) * (sqrt(2.0 / 3) / 2.0));
 			if (tmp > height->y)
 				height->y = tmp;
 			else if (tmp < height->x)
