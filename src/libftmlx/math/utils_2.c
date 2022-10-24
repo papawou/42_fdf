@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 15:55:10 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 13:54:39 by kmendes          ###   ########.fr       */
+/*   Created: 2022/08/29 14:12:46 by kmendes           #+#    #+#             */
+/*   Updated: 2022/08/29 14:12:47 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "libftmlx/math/ftmlx_utils.h"
 
-typedef enum e_code_clean
+float	deg_to_rad(float deg)
 {
-	E_CODE_INIT = 1<<0,
-	E_CODE_CLEAN = 1<<1,
-	E_CODE_RESET = 1<<2
-}	t_e_code_clean;
+	return (deg * PI / 180.0);
+}
 
-void	exit_clean_parser(void);
+float	rad_to_deg(float rad)
+{
+	return (rad * 180.0 / PI);
+}
 
-#endif
+int	ft_abs(int a)
+{
+	if (a < 0)
+		return (-a);
+	else
+		return (a);
+}
+
+double	ft_fabs(double a)
+{
+	if (a < 0.0)
+		return (-a);
+	else
+		return (a);
+}

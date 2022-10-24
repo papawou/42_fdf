@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   quat_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 15:55:10 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 13:54:39 by kmendes          ###   ########.fr       */
+/*   Created: 2022/06/25 02:54:56 by kmendes           #+#    #+#             */
+/*   Updated: 2022/06/28 14:53:01 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "libftmlx/math/ftmlx_quat.h"
 
-typedef enum e_code_clean
+t_quat	quat_id(void)
 {
-	E_CODE_INIT = 1<<0,
-	E_CODE_CLEAN = 1<<1,
-	E_CODE_RESET = 1<<2
-}	t_e_code_clean;
-
-void	exit_clean_parser(void);
-
-#endif
+	return ((t_quat){0, 0, 0, 1});
+}

@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ftmlx_color.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 15:55:10 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 13:54:39 by kmendes          ###   ########.fr       */
+/*   Created: 2022/05/30 23:59:31 by kmendes           #+#    #+#             */
+/*   Updated: 2022/09/15 03:26:45 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef FTMLX_COLOR_H
+# define FTMLX_COLOR_H
 
-typedef enum e_code_clean
+typedef struct s_color
 {
-	E_CODE_INIT = 1<<0,
-	E_CODE_CLEAN = 1<<1,
-	E_CODE_RESET = 1<<2
-}	t_e_code_clean;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
+}	t_color;
 
-void	exit_clean_parser(void);
+t_color			ftmlx_lerp_color(t_color a, t_color b, double alpha);
+int				ftmlx_get_color_int(t_color color);
+t_color			ftmlx_get_int_color(int color);
 
 #endif

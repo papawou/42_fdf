@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ftmlx_graphics.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 15:55:10 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 13:54:39 by kmendes          ###   ########.fr       */
+/*   Created: 2022/05/31 03:15:12 by kmendes           #+#    #+#             */
+/*   Updated: 2022/09/06 19:39:25 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef FTMLX_GRAPHICS_H
+# define FTMLX_GRAPHICS_H
 
-typedef enum e_code_clean
-{
-	E_CODE_INIT = 1<<0,
-	E_CODE_CLEAN = 1<<1,
-	E_CODE_RESET = 1<<2
-}	t_e_code_clean;
-
-void	exit_clean_parser(void);
+# include "libftmlx/graphics/ftmlx_cam.h"
+# include "libftmlx/graphics/ftmlx_print.h"
 
 #endif

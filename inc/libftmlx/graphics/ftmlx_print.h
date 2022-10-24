@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ftmlx_print.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 15:55:10 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 13:54:39 by kmendes          ###   ########.fr       */
+/*   Created: 2022/09/14 13:56:51 by kmendes           #+#    #+#             */
+/*   Updated: 2022/09/14 13:56:55 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef FTMLX_PRINT_H
+# define FTMLX_PRINT_H
 
-typedef enum e_code_clean
-{
-	E_CODE_INIT = 1<<0,
-	E_CODE_CLEAN = 1<<1,
-	E_CODE_RESET = 1<<2
-}	t_e_code_clean;
-
-void	exit_clean_parser(void);
+void	ftmlx_put_bresen_line(t_vec2 a, t_vec2 b, t_color c[2], t_img *canvas);
 
 #endif

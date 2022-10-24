@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: kmendes <kmendes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:31:49 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/23 23:22:06 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/17 16:26:12 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,54 @@
 # define FDF_H
 
 # include <libft.h>
-# include <libftmlx.h>
 # include <math.h>
-
-#include "parser.h"
+# include "libftmlx.h"
+# include	"parser.h"
 
 typedef struct s_scene
 {
 	t_ftmlx		ft;
 	t_ftcam		cam;
-	t_ftmlx3d	ft3d;
 	t_img		*canvas;
 
 	int			**map;
-	t_color	**map_color;
-	t_transform	tr_map;
-	t_fvec2		map_size;
-	float		**depth_buffer;
+	t_color		**map_color;
+	t_vec2		map_size;
+	t_mat4		map_mat;
 }	t_scene;
 
 //draw.c
-void	draw_map_wire(t_scene *sc);
-void	draw_map_triangle(t_scene *sc);
-void	draw_debug(t_scene *sc);
-
-void	shader_map(t_fvec3 a, t_fvec3 b, t_fvec3 c, t_scene *sc);
-
-void	setup_cam(t_scene *sc);
-int		controls_camera_listener(int keycode, t_scene *sc);
+void	draw(t_scene *sc);
 
 //scene.c
-void exit_clean(int code, char *str);
+void	exit_clean(int code, char *str);
 void	init_sc(t_scene *sc);
 void	clean_scene(int code, t_scene *sc);
+void	setup_scene(t_scene *sc);
 
 //cleaner.c
 void	clean_exit(int code_exit, t_scene *sc);
-int	close_me(void);
+int		close_me(t_scene *sc);
 
 //parser_cleaner.c
-void clean_fd_map(enum e_code_clean code, int fd_map);
-void clean_book(int code, t_list **entry);
+void	clean_fd_map(enum e_code_clean code, int fd_map);
+void	clean_book(int code, t_list **entry);
 
 //parser.c
 char	*get_next_line(int fd);
-int		parse_map(char *map_path, t_scene *sc);
+void	parse_map(char *map_path, t_scene *sc);
 int		parse_line(char *s, int dst[], t_color map_color[]);
+int		ft_atoi_safe(char *str, int *dst);
+
+//map.c
+void	calc_map_box(t_fvec2 *height, t_fvec2 *width, t_scene *sc);
+t_mat4	scale_map_mat(float scale);
+
+//cam.c
+void	setup_cam(t_scene *sc);
+
+//controls.c
+void	fps_move_camera(t_fvec3 v, t_ftcam *cam);
+void	world_move_camera(t_fvec3 v, t_ftcam *cam);
 
 #endif

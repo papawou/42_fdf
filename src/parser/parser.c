@@ -6,7 +6,7 @@
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 04:31:37 by kmendes           #+#    #+#             */
-/*   Updated: 2022/08/23 06:12:04 by kmendes          ###   ########.fr       */
+/*   Updated: 2022/09/06 20:54:58 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "fdf.h"
 
-static void parse_book(int **map, t_color **map_color, t_list *entry_page)
+static void	parse_book(int **map, t_color **map_color, t_list *entry_page)
 {
 	t_list	*tmp_page;
 	int		i;
@@ -52,11 +52,11 @@ static int	count_words(char *line)
 	return (count);
 }
 
-static int count_map(t_list *entry_page, t_scene *sc)
+static int	count_map(t_list *entry_page, t_scene *sc)
 {
-	int			nb_cols;
-	t_list *curr_page;
-	
+	int		nb_cols;
+	t_list	*curr_page;
+
 	sc->map_size.x = count_words(entry_page->content);
 	if (sc->map_size.x == 0)
 		return (1);
@@ -75,10 +75,9 @@ static int count_map(t_list *entry_page, t_scene *sc)
 
 static void	parse_read_file(char *map_path, t_list **entry_page)
 {
-	
-	t_list 	*tmp_page;
-	int			fd_map;
-	char		*line;
+	t_list	*tmp_page;
+	int		fd_map;
+	char	*line;
 
 	tmp_page = NULL;
 	fd_map = open(map_path, O_RDONLY);
@@ -101,25 +100,23 @@ static void	parse_read_file(char *map_path, t_list **entry_page)
 	return ;
 }
 
-int parse_map(char *map_path, t_scene *sc)
+void	parse_map(char *map_path, t_scene *sc)
 {
 	t_list	*entry_page;
-	
+
 	entry_page = NULL;
 	clean_book(E_CODE_INIT, &entry_page);
-	if (map_path == NULL)
-		return (1);
-	
 	parse_read_file(map_path, &entry_page);
-	if (!entry_page) //file is empty ?
+	if (!entry_page)
 		exit_clean_parser();
 	if (count_map(entry_page, sc))
 		exit_clean_parser();
-
-	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
+	sc->map = (int **)ft_malloc_cont_2d(sc->map_size.y,
+			sc->map_size.x, sizeof(int));
 	if (sc->map == NULL)
 		exit_clean_parser();
-	sc->map_color = (t_color **)ft_malloc_cont_2d(sc->map_size.y, sc->map_size.x, sizeof(int));
+	sc->map_color = (t_color **)ft_malloc_cont_2d(sc->map_size.y,
+			sc->map_size.x, sizeof(t_color));
 	if (sc->map_color == NULL)
 	{
 		ft_free_malloc_cont_2d((void **)sc->map);
@@ -127,5 +124,4 @@ int parse_map(char *map_path, t_scene *sc)
 	}
 	parse_book(sc->map, sc->map_color, entry_page);
 	clean_book(E_CODE_CLEAN | E_CODE_RESET, NULL);
-	return (0);
 }

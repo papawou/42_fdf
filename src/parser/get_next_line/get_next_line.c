@@ -78,22 +78,3 @@ char	*get_next_line(int fd)
 	else
 		return (NULL);
 }
-
-/*
-#include <stdio.h>
-#include <fcntl.h>
-
-int main(void)
-{
-	int fd = open("./test", O_RDONLY);
-
-	char *s;
-	s = get_next_line(fd);
-	while(s)
-	{
-		printf("%s", s);
-		s = get_next_line(fd);
-	}
-	return 0;
-}
-*/

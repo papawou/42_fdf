@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   cam.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 15:55:10 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 13:54:39 by kmendes          ###   ########.fr       */
+/*   Created: 2022/08/26 15:38:13 by kmendes           #+#    #+#             */
+/*   Updated: 2022/09/16 15:29:33 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "fdf.h"
+#include <libftmlx/ftmlx_math.h>
 
-typedef enum e_code_clean
+void	setup_cam(t_scene *sc)
 {
-	E_CODE_INIT = 1<<0,
-	E_CODE_CLEAN = 1<<1,
-	E_CODE_RESET = 1<<2
-}	t_e_code_clean;
+	t_transform	tranf;
+	t_mat4		proj;
 
-void	exit_clean_parser(void);
-
-#endif
+	tranf = (t_transform){euler_to_quat((t_euler){-35.264, -45, 0}),
+		(t_fvec3){0, 0, 0}};
+	proj = mat_id();
+	ftmlx_init_cam(tranf, proj, &sc->cam);
+}

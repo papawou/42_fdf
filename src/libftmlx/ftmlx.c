@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ftmlx.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmendes <kmendes@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 15:55:10 by kmendes           #+#    #+#             */
-/*   Updated: 2022/09/14 13:54:39 by kmendes          ###   ########.fr       */
+/*   Created: 2022/05/31 03:03:38 by kmendes           #+#    #+#             */
+/*   Updated: 2022/08/17 07:01:40 by kmendes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include <stdlib.h>
+#include "libftmlx.h"
 
-typedef enum e_code_clean
+int	ftmlx_init(int width, int height, t_ftmlx *ftmlx)
 {
-	E_CODE_INIT = 1<<0,
-	E_CODE_CLEAN = 1<<1,
-	E_CODE_RESET = 1<<2
-}	t_e_code_clean;
-
-void	exit_clean_parser(void);
-
-#endif
+	ftmlx->mlx = mlx_init();
+	if (ftmlx->mlx == NULL)
+		return (1);
+	ftmlx->win = mlx_new_window(ftmlx->mlx, width, height, "window");
+	if (ftmlx->win == NULL)
+		return (1);
+	ftmlx->wh = (t_vec2){width, height};
+	return (0);
+}
